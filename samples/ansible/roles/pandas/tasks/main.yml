@@ -1,0 +1,165 @@
+---
+- name: Access http_proxy environment value
+  script: files/find_proxy.sh
+  register: my_http_proxy1
+  tags:
+      - always
+
+- debug: msg="Remote proxy is {{ my_http_proxy1.stdout_lines[0] }}"
+
+- name: Initialize host fact
+  set_fact:
+    my_tmp: "{{ my_http_proxy1.stdout_lines[0] }}"
+  tags:
+    - always
+
+- set_fact:
+    my_http_proxy: "{{ my_tmp[7:] }}"
+  tags:
+    - always
+
+- debug: msg="Remote proxy processed is {{ my_http_proxy }}"
+  tags:
+    - always
+
+###
+# Install docker-compose
+###
+
+- name: Upgrade to latest pip
+  pip:
+    name: pip
+    extra_args: "--no-cache-dir --proxy=$http_proxy"
+    state:  latest
+  environment:
+    http_proxy: "http://{{ my_http_proxy }}"
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    extra_args: "--no-cache-dir --proxy=$http_proxy"
+    state:  latest
+  environment:
+    http_proxy: "http://{{ my_http_proxy }}"
+
+
+#  - name: Deploy application files
+#    copy: src=deploy dest=/var owner=jovyan group=jovyan
+
+- name: Install rsync for synchronize
+  yum: name=rsync state=present
+
+- name: Remove requirement for sudo tty so that rsync will work
+  lineinfile: dest=/etc/sudoers state=absent regexp="^Defaults[ ]*requiretty"
+
+#- debug: var=rsync_dest
+#  tags:
+#    - app
+#- debug: var=rsync_opts
+#  tags:
+#    - app
+#- debug: var=rsync_ssh
+#  tags:
+#    - app
+
+# Set selinux boolean to allow rsync access
+- seboolean: name=rsync_full_access state=yes persistent=yes
+
+# LG 161121 The following seems to work better if the command is specified without continuation lines.
+
+#- name: Copy application deploy directory to target host
+#  local_action: command rsync {{ rsync_opts }} {{ rsync_ssh }} deploy {{ rsync_dest }}
+#  tags:
+#    - app
+
+- name: Copy application deploy directory to target host
+  local_action: "command rsync
+      -avz --rsync-path='sudo rsync' --delay-updates -F --exclude=.git --exclude=*.pyc --exclude=scripts
+      --rsh='ssh -S none -o stricthostkeychecking=no -o batchmode=yes -l {{ ansible_ssh_user }} -i <my_ssh_key.pem>'
+      deploy
+      {{ ansible_ssh_user }}@{{ inventory_hostname }}:/var "
+  tags:
+    - app
+
+- name: Hardcode http_proxy environment variables in docker-compose file
+  replace:
+    dest: /var/deploy/dockerbuild/docker-compose.yml
+    regexp: 'myhttp_proxy_myhttp_port'
+    replace: "{{ my_http_proxy }}"
+  tags:
+    - app
+
+- name: Adjust owner / group /var/deploy
+  file:
+    path: /var/deploy
+    mode: "u+rw,g+rw,o+r"
+    owner: jovyan
+    group: jovyan
+    recurse: yes
+  become: true
+  become_user: root
+  tags:
+    - app
+
+- name: Create /var/deploy/csv files if they do not exist
+  file:
+    path: "{{ item }}"
+    group: sccm_uid
+    owner: sccm_uid
+    mode: "u+rw,g+rw,o+r"
+    state: touch
+    recurse: no
+  become: true
+  become_user: root
+  with_items:
+    - /var/deploy/csv
+    - /var/deploy/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
+    - /var/deploy/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
+    - /var/deploy/csv/v_R_System.csv
+    - /var/deploy/csv/ps-exclusion-Java-ad.csv
+    - /var/deploy/csv/ps-exclusion-patch-ad.csv
+    - /var/deploy/csv/ps-users-ad.csv
+  tags:
+    - app
+
+- name: Adjust group /var/deploy/csv
+  file:
+    path: "{{ item }}"
+    group: sccm_uid
+    owner: sccm_uid
+    recurse: no
+  become: true
+  become_user: root
+  with_items:
+    - /var/deploy/csv
+    - /var/deploy/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
+    - /var/deploy/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
+    - /var/deploy/csv/v_R_System.csv
+    - /var/deploy/csv/ps-exclusion-Java-ad.csv
+    - /var/deploy/csv/ps-exclusion-patch-ad.csv
+    - /var/deploy/csv/ps-users-ad.csv
+  tags:
+    - app
+
+###
+# Start docker service, then start application container
+###
+
+- name: Reset selinux to allow journald to restart across reboots.
+  command: restorecon -r /etc/machine-id
+
+- name: Ensure that journald is started
+  service: name=systemd-journald state=started enabled=yes
+
+- name: Start docker
+  service: name=docker state=started enabled=yes
+
+- name: Stop container if started
+  command: docker-compose down -v --remove-orphans chdir=/var/deploy/dockerbuild
+  tags:
+    - app
+
+- name: Build and run container
+  command: docker-compose up --build -d chdir=/var/deploy/dockerbuild
+  tags:
+    - app

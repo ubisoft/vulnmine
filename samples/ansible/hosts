@@ -1,0 +1,6 @@
+[sccmlinux]
+<ip-addr-of-linux-tgt-host>
+
+[sccmwin]
+
+<ip-addr-of-windows-tgt-host>

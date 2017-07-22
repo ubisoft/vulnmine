@@ -1,0 +1,4 @@
+become: true
+ansible_user: cloud-user
+remote_user: cloud-user
+ansible_ssh_user: cloud-user

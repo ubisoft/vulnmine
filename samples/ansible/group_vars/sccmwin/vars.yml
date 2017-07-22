@@ -1,0 +1,39 @@
+######
+# 161202 Currently using local Admin acct. Simpler. Following is overridden with cmdline
+######
+
+ansible_user: Admin
+ansible_password: '{{ vault_admin_password }}'
+
+
+ansible_port: 5986
+ansible_connection: winrm
+
+# The following is necessary for Python 2.7.9+ (or any older Python that has backported SSLContext, eg, Python 2.7.5 on RHEL7) when using default WinRM self-signed certificates:
+ansible_winrm_server_cert_validation: ignore
+
+
+tgt_user: <my_windows_service_acct>
+tgt_password: '{{ vault_sccmuser_password }}'
+
+tgt_scripts_dir: 'C:\Users\{{ tgt_user }}\scripts'
+
+download_path: 'Downloads'
+
+"win_sft": {
+  "rsat": {
+    "name": "Remote Server Administration Tools",
+    "pkg": "Windows6.1-KB958830-x64-RefreshPkg.msu",
+    "url": "https://www.microsoft.com/en-ca/download/confirmation.aspx?id=7887&6B49FDFB-8E5B-4B07-BC31-15695C5A2143=1"
+    },
+  "obdcsql": {
+    "name": "MS OBCD driver for SQL Server 2016 x64 ENU",
+    "pkg": "msodbcsql.msi",
+    "url": "https://download.microsoft.com/download/8/7/2/872BCECA-C849-4B40-8EBE-21D48CDF1456/ENU/x64/msodbcsql.msi"
+    },
+  "sqlcmdln": {
+    "name": "MS Cmd Line Utilities for SQL Server 2016 x64 ENU",
+    "pkg": "MsSqlCmdLnUtils.msi",
+    "url": "https://download.microsoft.com/download/8/7/2/872BCECA-C849-4B40-8EBE-21D48CDF1456/ENU/x64/MsSqlCmdLnUtils.msi"
+    }
+  }

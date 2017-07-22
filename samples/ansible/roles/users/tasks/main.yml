@@ -1,0 +1,49 @@
+---
+# First create the groups
+#   Files will be in /var/deploy
+#   All users need access to this directory.
+#      jovyan, the container user accesses everything
+#      sccm_uid, the "transfer" user, accesses only the csv sub-directory
+
+- name: Create group for access to "deploy" files
+  group: name=sccm_uid gid=1001
+
+- name: Create primary group for the container user
+  group: name=jovyan gid=1000
+
+- name: Create group docker to run docker commands without sudo
+  group: name=docker
+
+# Allow the admin user direct access to the "deploy" files
+# Allow the admin user to run docker without sudo
+
+- name: Put the admin user in proper groups
+  user: name=cloud-user append=yes groups=sccm_uid,jovyan,docker
+
+# Now create the other two users and place in their groups
+
+- name: Create container user so that container can access "deploy" files
+  user: name=jovyan uid=1000 group=jovyan groups=sccm_uid
+
+- name: Create user for transfers of sccm raw csv data
+  user: name=sccm_uid group=sccm_uid
+
+- name: Add ssh keys for transfer in/out of SCCM data
+  authorized_key:
+    user: sccm_uid
+    key: "{{ item }}"
+    key_options: >
+            command="scp $SSH_ORIGINAL_COMMAND",
+            no-port-forwarding,
+            no-x11-forwarding,
+            no-agent-forwarding
+  with_file:
+    - sshkey_win.pub
+
+- name: Sudo without passwd
+  blockinfile:
+    dest: /etc/sudoers
+    marker: "# {mark} ANSIBLE MANAGED BLOCK "
+    content: |
+      ubuntu ALL=(ALL) NOPASSWD: ALL
+      lgsec1 ALL=(ALL) NOPASSWD: ALL

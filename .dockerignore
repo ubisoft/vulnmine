@@ -1,0 +1,20 @@
+######
+#	This .docker ignore is used for building a standalone contaner (e.g. for dockerhub) with all directories
+######
+
+
+# Ignore everything
+*
+
+# Include following directories only
+!data/**
+!vulnmine/**
+!requirements.txt
+
+# But not these directories and files
+data/tests
+vulnmine/ipynb
+**/*.pck
+**/*.pyc
+**/*.json
+!data/conf/logging.json

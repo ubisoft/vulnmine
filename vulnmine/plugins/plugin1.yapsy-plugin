@@ -1,0 +1,8 @@
+[Core]
+Name = Plugin Input
+Module = plugin1
+
+[Documentation]
+Author = Your Name
+Version = 0.1
+Description = Vulnmine Input Plugin

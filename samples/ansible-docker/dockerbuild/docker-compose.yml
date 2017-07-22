@@ -1,0 +1,37 @@
+version: '2'
+services:
+  ansible:
+    build:
+        context: .
+        args:
+            - HTTP_PROXY=${http_proxy}
+            - HTTPS_PROXY=${https_proxy}
+            - http_proxy=${http_proxy}
+            - https_proxy=${https_proxy}
+
+
+    environment:
+        - HTTP_PROXY=${http_proxy}
+        - HTTPS_PROXY=${https_proxy}
+        - http_proxy
+        - https_proxy
+        # Openstack environment variables
+        - OS_TENANT_NAME
+        - OS_USERNAME
+        - OS_AUTH_URL
+        - OS_REGION_NAME
+        - OS_PASSWORD
+        # AWS environment variables
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+        - ANSIBLE_CONFIG
+        # Editor
+        - EDITOR=nano
+
+    volumes:
+        - /home/lgsec1/wip/ansible:/home/ansible/work
+
+
+#    logging:
+#        driver: "journald"
+

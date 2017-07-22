@@ -1,0 +1,11 @@
+.git/
+coverage/
+
+.dockerignore
+Dockerfile
+
+.gitignore
+.env
+.eslintrc
+.editorconfig
+*.yml

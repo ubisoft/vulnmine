@@ -1,0 +1,17 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: configure and deploy the linux server to run pandas in a docker container
+  hosts: sccmlinux
+  remote_user: cloud-user
+  become: True
+
+  roles:
+    - users
+    - pandas
+
+- name: configure and deploy the windows server to extract sccm and ad data
+  hosts: sccmwin
+
+  roles:
+    - sccm_win

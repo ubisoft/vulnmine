@@ -1,0 +1,34 @@
+#
+version: '2'
+services:
+  pyprod:
+    build:
+        context: .
+        args:
+            - HTTP_PROXY=${http_proxy}
+            - HTTPS_PROXY=${https_proxy}
+            - http_proxy=${http_proxy}
+            - https_proxy=${https_proxy}
+
+    environment:
+        - HTTP_PROXY=${http_proxy}
+        - HTTPS_PROXY=${https_proxy}
+        - http_proxy
+        - https_proxy
+
+        # Editor
+        - EDITOR=nano
+
+    volumes:
+        - ./data:/home/jovyan/work:z
+        - ./vulnmine:/home/jovyan/work/src
+        - ./tests:/home/jovyan/work/tests
+
+#    restart: always
+
+    # no spaces in parameter for script
+    command: ["python", "src/vulnmine.py"]
+#    command: ["python", "src/sccmmain.py", "-ard_cve"]
+ #   command: ["bash", "-c", "id; pwd; ls -alF; ls -alF src"]
+
+

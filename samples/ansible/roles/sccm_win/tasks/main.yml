@@ -1,0 +1,119 @@
+---
+
+######
+#   Basic configuration
+######
+
+- name: Create directory for scripts
+  win_file:
+    state: directory
+    path: '{{ tgt_scripts_dir }}\csv'
+  tags:
+    - app
+
+- name: Copy scripts
+  win_copy: src=deploy/scripts/ dest={{ tgt_scripts_dir }}
+  tags:
+    - app
+
+######
+#   RSAT AD Powershell support
+#
+#   References:
+#       https://blogs.technet.microsoft.com/ashleymcglone/2016/02/26/install-the-active-directory-powershell-module-on-windows-10/
+#
+#       https://www.microsoft.com/en-ca/download/details.aspx?id=39296
+#       Remote Server Administration Tools for Windows 8.1
+#        KB2693643 https://support.microsoft.com/en-ca/kb/2693643
+#
+######
+
+- debug: msg="Download and install {{ win_sft.rsat.name }}"
+
+- name: Check if file already downloaded
+  win_stat: path='{{ download_path }}\{{ win_sft.rsat.pkg }}'
+  register: file_info
+
+- debug: var=file_info
+
+- name: Download software
+  win_get_url:
+    dest:  '{{ download_path }}\{{ win_sft.rsat.pkg }}'
+    url: '{{ win_sft.rsat.url }}'
+    when: file_info.exists != 'true'
+
+- name: Install Remote Server Administration Tools
+  win_msi:
+    path: '{{ download_path }}\{{ win_sft.rsat.pkg }}'
+    state: present
+    wait: True
+
+- name: Install RSAT Feature
+  win_feature:
+    name: "RSAT-AD-PowerShell"
+    state: present
+
+######
+#   MS-Sql OBDC Driver
+#
+#   Reference for this and next pgm:
+#       Microsoft® SQL Server® 2016 Feature Pack
+#       https://www.microsoft.com/en-us/download/details.aspx?id=52676
+######
+
+- debug: msg="Download and install {{ win_sft.obdcsql.name }}"
+
+- name: Check if file already downloaded
+  win_stat: path='{{ download_path }}\{{ win_sft.obdcsql.pkg }}'
+  register: file_info
+
+- debug: var=file_info
+
+- name: Download software
+  win_get_url:
+    dest:  '{{ download_path }}\{{ win_sft.obdcsql.pkg }}'
+    url: '{{ win_sft.obdcsql.url }}'
+    when: file_info.exists != 'true'
+
+- name: Install MS-Sql OBDC Driver
+  win_msi:
+    path: '{{ download_path }}\{{ win_sft.obdcsql.pkg }}'
+    state: present
+    extra_args: "IACCEPTMSODBCSQLLICENSETERMS=YES"
+    wait: True
+
+
+######
+#   MS-Sql Cmdline Utilities
+######
+
+- debug: msg="Download and install {{ win_sft.sqlcmdln.name }}"
+
+- name: Check if file already downloaded
+  win_stat: path='{{ download_path }}\{{ win_sft.sqlcmdln.pkg }}'
+  register: file_info
+
+- debug: var=file_info
+
+- name: Download software
+  win_get_url:
+    dest:  '{{ download_path }}\{{ win_sft.sqlcmdln.pkg }}'
+    url: '{{ win_sft.sqlcmdln.url }}'
+    when: file_info.exists != 'true'
+
+- name: Install MS-Sql Cmdline Utilities
+  win_msi:
+    path: '{{ download_path }}\{{ win_sft.sqlcmdln.pkg }}'
+    state: present
+    extra_args: "IACCEPTMSSQLCMDLNUTILSLICENSETERMS=YES"
+    wait: True
+
+######
+#   Schedule extraction task daily execution
+######
+
+- name: Schedule script execution
+  win_command: 'SchTasks /Create /SC DAILY /TN SCCM_AD_Extract /ST 05:00 /RU {{ tgt_user }} /RP {{ tgt_password }}
+          /TR \"powershell.exe -NonInteractive -file {{ tgt_scripts_dir }}\sccm_get_data.ps1\" '
+  args:
+    creates: 'C:\Users\{{ tgt_user }}\mytask_created'

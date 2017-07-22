@@ -1,0 +1,10 @@
+---
+# handlers file for docker
+- name: Start Docker
+  service: name=docker state=started
+
+- name: Reload docker
+  service: name=docker state=reloaded
+
+- name: Restart docker
+  service: name=docker state=restarted
