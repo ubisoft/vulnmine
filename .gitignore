@@ -18,6 +18,7 @@
 **/data/csv/*json
 **/data/pck/**
 **/data/nvd/**
+!**/file-to-force-dir-creation
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 **/*.userprefs
