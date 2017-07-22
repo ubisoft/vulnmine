@@ -6,12 +6,12 @@ Vulnmine uses simple Machine Learning to mine Microsoft's **SCCM** host and soft
 
 ## Running Vulnmine
 
-There is a public container with test data ready for use on Docker Hub: $TODO$
+There is a public container with test data ready for use on Docker Hub: [lorgor/vulnmine](https://hub.docker.com/r/lorgor/vulnmine)
 
 To download and run the Vulnmine container:
 
 ```bash
-docker run -it --rm $TODO$/vulnmine bash
+docker run -it --rm lorgor/vulnmine bash
 
 python src/vulnmine.py -a 'all'
 ```
@@ -63,7 +63,7 @@ If no parameters are specified, then Vulnmine runs in *production mode*:
 
 ## Where to get more information
 
-Vulnmine is on Github $TODO$
+Vulnmine is on Github: <https://github.com/lorgor/vulnmine>
 
 The docs directory has the full Vulnmine documentation.
 
