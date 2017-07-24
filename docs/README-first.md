@@ -55,6 +55,7 @@ The _docker-compose.yml_ configuration provided fully integrates the local repos
 For detailed instructions, see:
 * **docs/Installation.md**: Initial setup / installation instructions:
 * **docs/Quickstart.md**: How to run Vulnmine tests using docker-compose.
+* **docs/Develop.md**: Notes for developers
 
 ### Dependencies
 

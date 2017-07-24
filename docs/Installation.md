@@ -57,7 +57,9 @@ pytest
 
 ## Instructions for running Vulnmine, developing, testing
 
-**/doc/Use.md** has guidelines for using Vulnmine.
+See:
 
-See **/doc/Tests.md** for instructions on running tests.
+* **/doc/Use.md**: Guidelines for using Vulnmine.
+* **/doc/Tests.md**: Instructions on running tests.
+* **/doc/Develop.md**: Notes for developers
 
