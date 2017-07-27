@@ -1,8 +1,8 @@
 # Include the license file
-include LICENSE.txt
+include LICENSE.md
 
 # Include the doc files
-recursive-include doc *.md
+recursive-include docs *.md
 
-recursive-include data
-prune data/csv/v*csv
+recursive-include data *.json *.csv *.pkl.z
+recursive-exclude data v_*.csv

@@ -1,3 +1,4 @@
+LICENSE.md
 MANIFEST.in
 README.rst
 setup.cfg
@@ -9,13 +10,18 @@ data/csv/label_vendors.csv
 data/csv/ps-ad-vip.csv
 data/csv/s_vndr_stop_wds.csv
 data/csv/sft_vuln_raw.csv
-data/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
-data/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
-data/csv/v_R_System.csv
 data/models/software_classif_trained_Rdm_Forest.pkl.z
 data/models/vendor_classif_trained_Rdm_Forest.pkl.z
 data/nvd/file-to-force-dir-creation
 data/pck/file-to-force-dir-creation
+docs/Ansible.md
+docs/CONTRIBUTING.md
+docs/Develop.md
+docs/Installation.md
+docs/README-first.md
+docs/Tests.md
+docs/Todo.md
+docs/Use.md
 vulnmine/__init__.py
 vulnmine/gbls.py
 vulnmine/matchsft.py

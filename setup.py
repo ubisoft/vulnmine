@@ -127,8 +127,7 @@ setup(
                         'data/csv/label_vendors.csv',
                         'data/csv/s_vndr_stop_wds.csv',
                         'data/models/software_classif_trained_Rdm_Forest.pkl.z',
-                        'data/models/vendor_classif_trained_Rdm_Forest.pkl.z',
-                        ''
+                        'data/models/vendor_classif_trained_Rdm_Forest.pkl.z'
                         ])],
 
     # To provide executable scripts, use entry points in preference to the
