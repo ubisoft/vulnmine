@@ -1,0 +1,8 @@
+# Include the license file
+include LICENSE.md
+
+# Include the doc files
+recursive-include docs *.md
+
+recursive-include data *.json *.csv *.pkl.z
+recursive-exclude data v_*.csv
