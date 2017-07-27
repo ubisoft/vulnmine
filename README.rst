@@ -30,64 +30,12 @@ Here are the possible options when starting Vulnmine:
 
     vulnmine.py  [-h] [--version] [-l Logging] [-a Action] [-y Years] [-w Workdir]
 
-+------------+-----------------+
-| Parameter  | Use             |
-+============+=================+
-| -h         | Help information|
-| --help     |                 |
-+------------+-----------------+
-| -l         | Set desired     |
-|            | verbosity for   |
-|            | logging:        |
-| --loglevel | - debug         |
-|            | - info          | 
-|            | - warning       |
-|            | - error         |
-|            | - critical      |
-+------------+-----------------+
-| -a         | Desired action  |
-|            | to perform:     |
-| --action   | - rd_sccm_hosts |
-|            |   (Read SCCM    |
-|            |    host data)   |
-|            | - rd_sccm_sft   |
-|            |   (Read SCCM    |
-|            |    software     |
-|            |    data)        |
-|            | - rd_cpe        |
-|            |   (Download NIST|
-|            |    CPE file)    |
-|            | - rd_cve        |
-|            |   (Download NIST|
-|            |    CVE files    |
-|            | - match_vendors |
-|            |   (Match vendors|
-|            |   from SCCM A/R |
-|            |   registry to   |
-|            |   NIST CPE data |
-|            | - match_sft     |
-|            |   (Match sftware|
-|            |    from SCCM to |
-|            |    NIST)        |
-|            | -upd_hosts_vulns|
-|            |   (Produce      |
-|            |    consolidated | 
-|            |    host / vuln  |
-|            |    data)        |
-|            | - output_stats  |
-|            | - all           |
-|            |   (Run all the  |
-|            |    above)       |
-+------------+-----------------+
-| -y         | Number of years |
-| --years    | to download     |
-|            | There is one CVE|
-|            | file/year       |
-+------------+-----------------+
-| -w         | Specifies       |
-| --workdir  | working         |
-|            | directory       |
-+------------+-----------------+
+    -h --help Help information
+    -l --loglevel Set desired verbosity for logging ('debug','info','warning','error','critical')
+    -a --action Desired action to perform ('rd_sccm_hosts','rd_sccm_sft','rd_cpe','rd_cve',
+    'match_vendors','match_sft','upd_hosts_vulns','output_stats')
+    -y --years Number of yrs of CVE files to download
+    -w --workdir Working directory
 
 Production mode
 ~~~~~~~~~~~~~~~
