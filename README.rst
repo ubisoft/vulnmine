@@ -30,229 +30,64 @@ Here are the possible options when starting Vulnmine:
 
     vulnmine.py  [-h] [--version] [-l Logging] [-a Action] [-y Years] [-w Workdir]
 
-+------------+------+
-| Parameter  | Use  |
-+============+======+
-| -h         | Help |
-|            | info |
-|            | rmat |
-|            | ion  |
-+------------+------+
-| -help      |      |
-+------------+------+
-|            |      |
-+------------+------+
-| -l         | Set  |
-|            | desi |
-|            | red  |
-|            | verb |
-|            | osit |
-|            | y    |
-|            | for  |
-|            | logg |
-|            | ing: |
-+------------+------+
-| --loglevel | *deb |
-|            | ug*  |
-|            | *inf |
-|            | o*   |
-|            | *war |
-|            | ning |
-|            | *    |
-|            | *err |
-|            | or*  |
-|            | *cri |
-|            | tica |
-|            | l*   |
-+------------+------+
-|            |      |
-+------------+------+
-| -a         | Desi |
-|            | red  |
-|            | acti |
-|            | on   |
-|            | to   |
-|            | perf |
-|            | orm: |
-+------------+------+
-| --action   | *rd\ |
-|            | _scc |
-|            | m\_h |
-|            | osts |
-|            | :*   |
-|            | Read |
-|            | SCCM |
-|            | host |
-|            | data |
-+------------+------+
-|            | *rd\ |
-|            | _scc |
-|            | m\_s |
-|            | ft:* |
-|            | Read |
-|            | SCCM |
-|            | soft |
-|            | ware |
-|            | data |
-+------------+------+
-|            | *rd\ |
-|            | _cpe |
-|            | :*   |
-|            | Down |
-|            | load |
-|            | /    |
-|            | inpu |
-|            | t    |
-|            | NIST |
-|            | CPE  |
-|            | Vend |
-|            | or-P |
-|            | rodu |
-|            | ct   |
-|            | dict |
-|            | iona |
-|            | ry   |
-+------------+------+
-|            | *rd\ |
-|            | _cve |
-|            | :*   |
-|            | Down |
-|            | load |
-|            | /    |
-|            | inpu |
-|            | t    |
-|            | NIST |
-|            | CVE  |
-|            | Vuln |
-|            | erab |
-|            | ilit |
-|            | y    |
-|            | feed |
-|            | data |
-+------------+------+
-|            | *mat |
-|            | ch\_ |
-|            | vend |
-|            | ors: |
-|            | *    |
-+------------+------+
-|            | Matc |
-|            | h    |
-|            | vend |
-|            | ors  |
-|            | from |
-|            | SCCM |
-|            | "Add |
-|            | -Rem |
-|            | ove" |
-|            | regi |
-|            | stry |
-|            | data |
-|            | to   |
-|            | NVD  |
-|            | CPE  |
-|            | data |
-+------------+------+
-|            | *mat |
-|            | ch\_ |
-|            | sft: |
-|            | *    |
-+------------+------+
-|            | Matc |
-|            | h    |
-|            | soft |
-|            | ware |
-|            | from |
-|            | SCCM |
-|            | "Add |
-|            | -Rem |
-|            | ove" |
-|            | regi |
-|            | stry |
-|            | data |
-|            | to   |
-|            | NVD  |
-|            | CPE  |
-|            | data |
-+------------+------+
-|            | *upd |
-|            | \_ho |
-|            | sts\ |
-|            | _vul |
-|            | ns:* |
-|            | Dete |
-|            | rmin |
-|            | e    |
-|            | vuln |
-|            | erab |
-|            | ilit |
-|            | ies  |
-|            | for  |
-|            | each |
-|            | host |
-|            | in   |
-|            | SCCM |
-+------------+------+
-|            | *out |
-|            | put\ |
-|            | _sta |
-|            | ts:* |
-|            | Outp |
-|            | ut   |
-|            | the  |
-|            | resu |
-|            | lts  |
-+------------+------+
-|            | *all |
-|            | :*   |
-|            | Run  |
-|            | all  |
-|            | the  |
-|            | abov |
-|            | e    |
-|            | in   |
-|            | sequ |
-|            | ence |
-+------------+------+
-|            |      |
-+------------+------+
-| -y         | Numb |
-|            | er   |
-|            | of   |
-|            | year |
-|            | s    |
-|            | to   |
-|            | down |
-|            | load |
-|            | .    |
-|            | Ther |
-|            | e    |
-|            | is   |
-|            | one  |
-|            | CVE  |
-|            | feed |
-|            | file |
-|            | for  |
-|            | each |
-|            | year |
-|            | 's   |
-|            | data |
-|            | .    |
-+------------+------+
-| --years    |      |
-+------------+------+
-|            |      |
-+------------+------+
-| -w         | Spec |
-|            | ifie |
-|            | s    |
-|            | work |
-|            | dire |
-|            | ctor |
-|            | y    |
-+------------+------+
-| --workdir  |      |
-+------------+------+
++------------+-----------------+
+| Parameter  | Use             |
++============+=================+
+| -h         | Help information|
+| --help     |                 |
++------------+-----------------+
+| -l         | Set desired     |
+|            | verbosity for   |
+|            | logging:        |
+| --loglevel | - debug         |
+|            | - info          | 
+|            | - warning       |
+|            | - error         |
+|            | - critical      |
++------------+-----------------+
+| -a         | Desired action  |
+|            | to perform:     |
+| --action   | - rd_sccm_hosts |
+|            |   (Read SCCM    |
+|            |    host data)   |
+|            | - rd_sccm_sft   |
+|            |   (Read SCCM    |
+|            |    software     |
+|            |    data)        |
+|            | - rd_cpe        |
+|            |   (Download NIST|
+|            |    CPE file)    |
+|            | - rd_cve        |
+|            |   (Download NIST|
+|            |    CVE files    |
+|            | - match_vendors |
+|            |   (Match vendors|
+|            |   from SCCM A/R |
+|            |   registry to   |
+|            |   NIST CPE data |
+|            | - match_sft     |
+|            |   (Match sftware|
+|            |    from SCCM to |
+|            |    NIST)        |
+|            | -upd_hosts_vulns|
+|            |   (Produce      |
+|            |    consolidated | 
+|            |    host / vuln  |
+|            |    data)        |
+|            | - output_stats  |
+|            | - all           |
+|            |   (Run all the  |
+|            |    above)       |
++------------+-----------------+
+| -y         | Number of years |
+| --years    | to download     |
+|            | There is one CVE|
+|            | file/year       |
++------------+-----------------+
+| -w         | Specifies       |
+| --workdir  | working         |
+|            | directory       |
++------------+-----------------+
 
 Production mode
 ~~~~~~~~~~~~~~~
