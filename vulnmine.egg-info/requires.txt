@@ -2,11 +2,12 @@ fuzzywuzzy
 numpy
 pandas
 python-Levenshtein
-scikit-learn
+python-dev
+scikit-learn==0.18.2
 sympy
-scipy
-xmltodict
+scipy==0.19.1
 schedule
+xmltodict
 yapsy
 
 [dev]
