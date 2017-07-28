@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.2',
+    version='1.0.3',
 
     description='Mine SCCM and NIST NVD for host vulnerability data',
     long_description=long_description,
@@ -44,7 +44,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 2 - Pre-Alpha',
 
         # Indicate who your project is intended for
         'Intended Audience :: Information Technology',
@@ -57,10 +57,10 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        #'Programming Language :: Python :: 3',
+        #'Programming Language :: Python :: 3.4',
+        #'Programming Language :: Python :: 3.5',
+        #'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
@@ -83,11 +83,12 @@ setup(
                 'numpy',
                 'pandas',
                 'python-Levenshtein',
-                'scikit-learn',
+                'python-dev',
+                'scikit-learn==0.18.2',
                 'sympy',
-                'scipy',
-                'xmltodict',
+                'scipy==0.19.1',
                 'schedule',
+                'xmltodict',
                 'yapsy'
                 ],
 

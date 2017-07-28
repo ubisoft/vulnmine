@@ -1,6 +1,14 @@
 Vulnmine
 ========
 
+**IMPORTANT NOTE**
+2017-7-27
+This code is **alpha** only. For a full working version, currently the best
+approach is to clone the github repository directly or use the Docker Hub
+container.
+
+
+
 Vulnmine uses simple Machine Learning to mine Microsoft's **SCCM** host
 and software inventory data for **vulnerable 3rd-party software**.
 
@@ -30,12 +38,26 @@ Here are the possible options when starting Vulnmine:
 
     vulnmine.py  [-h] [--version] [-l Logging] [-a Action] [-y Years] [-w Workdir]
 
-    -h --help Help information
-    -l --loglevel Set desired verbosity for logging ('debug','info','warning','error','critical')
-    -a --action Desired action to perform ('rd_sccm_hosts','rd_sccm_sft','rd_cpe','rd_cve',
-    'match_vendors','match_sft','upd_hosts_vulns','output_stats')
-    -y --years Number of yrs of CVE files to download
-    -w --workdir Working directory
+    -h --help             Help information
+    -l --loglevel         Set desired verbosity for logging:
+                            'debug','info','warning','error','critical'
+    -a --action           Desired action to perform:
+                                'rd_sccm_hosts'   Read SCCM host inventory data
+                                'rd_sccm_sft'     Read SCCM software inventory
+                                'rd_cpe'          Read/parse NIST CPE
+                                                     vendor/product file
+                                'rd_cve'          Read/parse NIST CVE
+                                                     vulnerability data
+                                'match_vendors'   Match SCCM publishers to NIST
+                                                     CPE vendors
+                                'match_sft'       Match SCCM software to NIST CPE
+                                                     software
+                                'upd_hots_vulns'  Produce consolidated host / vulnerable
+                                                     software data
+                                'output_stats'    Output statistics
+    -y --years            Number of yrs of CVE vulnerability data to download. There is
+                            one file for each year
+    -w --workdir          Specify the working directory
 
 Production mode
 ~~~~~~~~~~~~~~~
@@ -56,5 +78,6 @@ Where to get more information
 -----------------------------
 
 Vulnmine is on Github: https://github.com/lorgor/vulnmine
+And on Docker Hub: https://hub.docker.com/r/lorgor/vulnmine/
 
 The docs directory has the full Vulnmine documentation.
