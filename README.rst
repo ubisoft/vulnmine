@@ -74,6 +74,12 @@ If no parameters are specified, then Vulnmine runs in *production mode*:
    -  Processes the SCCM and NVD data.
    -  Produces output JSON files into the same csv directory.
 
+If installing from PyPI with pip
+--------------------------------
+
+If you are installing vulnmine using pip, the python-dev library must be installed on
+the system.
+
 Where to get more information
 -----------------------------
 

@@ -32,13 +32,17 @@ VERSION = '1.0'
 #   Following is initialized in utils.init_globals()
 #   once the working directory is known
 
+#   Configuration files
+CONF_DEF_FILE = 'vulnmine_defaults.ini'
+CONF_FILE = 'data/vulnmine.ini'
+log_conf = ''
+
 #   Working Directories
 wkdir = ''
 pckdir = ''
-confdir = ''
 csvdir = ''
 nvddir = ''
-modeldir = ''
+pkgdir = ''
 
 # Scheduling
 CANCEL_ON_FAILURE = False
@@ -159,7 +163,7 @@ sft_attr_list = sft_key_list + sft_feature_list + ['t_cve_name']
 ######
 
 #   Plugins must be located in the following directory
-PLUGINFOLDER = '/home/jovyan/work/src/plugins'
+plugin_folder = ''
 
 #   Plugin names specified here must match those in the "*.yapsy-plugin"
 #   configuration files
