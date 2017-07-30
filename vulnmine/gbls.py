@@ -29,20 +29,20 @@ loglvl = logging.INFO
 # Version
 VERSION = '1.0'
 
-#   Following is initialized in utils.init_globals()
-#   once the working directory is known
-
-#   Configuration files
-CONF_DEF_FILE = 'vulnmine_defaults.ini'
-CONF_FILE = 'data/vulnmine.ini'
-log_conf = ''
-
 #   Working Directories
+DATADIR = 'data/'
+CONFDIR = 'vulnmine_data/'
 wkdir = ''
 pckdir = ''
 csvdir = ''
 nvddir = ''
 pkgdir = ''
+
+#   Configuration files
+CONFIG_DEFAUlTS = 'vulnmine_defaults.ini'
+CONF_FILE = 'vulnmine.ini'
+log_conf = ''
+
 
 # Scheduling
 CANCEL_ON_FAILURE = False

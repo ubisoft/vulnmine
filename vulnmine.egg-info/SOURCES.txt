@@ -33,5 +33,13 @@ vulnmine.egg-info/SOURCES.txt
 vulnmine.egg-info/dependency_links.txt
 vulnmine.egg-info/requires.txt
 vulnmine.egg-info/top_level.txt
+vulnmine/../data/vulnmine_data/label_software.csv
+vulnmine/../data/vulnmine_data/label_vendors.csv
+vulnmine/../data/vulnmine_data/logging.json
+vulnmine/../data/vulnmine_data/logging.json.example
+vulnmine/../data/vulnmine_data/s_vndr_stop_wds.csv
+vulnmine/../data/vulnmine_data/software_classif_trained_Rdm_Forest.pkl.z
+vulnmine/../data/vulnmine_data/vendor_classif_trained_Rdm_Forest.pkl.z
+vulnmine/../data/vulnmine_data/vulnmine_defaults.ini
 vulnmine/plugins/plugin1.py
 vulnmine/plugins/plugin2.py

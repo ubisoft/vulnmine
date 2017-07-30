@@ -285,7 +285,11 @@ def main():
 
     # Initialize global variables now that the working directory
     # is known
-    utils.init_globals()
+    retval = utils.init_globals()
+
+    # If serious error initializing globals, then abort.
+    if retval > 0:
+        return retval
 
     # initialize logging
     utils.setup_logging()
