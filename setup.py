@@ -111,11 +111,11 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
        'vulnmine': [
-                'tests/data/*',
-                'tests/conf*.py',
-                'tests/rebuild*.py',
-                'plugins/*.py'
-                ],
+                # 'tests/data/*',
+                # 'tests/conf*.py',
+                # 'tests/rebuild*.py',
+                'plugins/*.py',
+                '../data/vulnmine_data/*'                ],
        },
 
     # Although 'package_data' is the preferred approach, in some case you may
@@ -124,15 +124,15 @@ setup(
     # additional-files # noqa In this case, 'data_file' will be installed into
     # '<sys.prefix>/my_data'
 
-    data_files=[('vulnmine_data', [
-            'data/vulnmine_data/logging.json',
-            'data/vulnmine_data/vulnmine_defaults.ini',
-            'data/vulnmine_data/label_software.csv',
-            'data/vulnmine_data/label_vendors.csv',
-            'data/vulnmine_data/s_vndr_stop_wds.csv',
-            'data/vulnmine_data/software_classif_trained_Rdm_Forest.pkl.z',
-            'data/vulnmine_data/vendor_classif_trained_Rdm_Forest.pkl.z'
-            ])],
+    # data_files=[('vulnmine_data', [
+    #         'data/vulnmine_data/logging.json',
+    #         'data/vulnmine_data/vulnmine_defaults.ini',
+    #         'data/vulnmine_data/label_software.csv',
+    #         'data/vulnmine_data/label_vendors.csv',
+    #         'data/vulnmine_data/s_vndr_stop_wds.csv',
+    #         'data/vulnmine_data/software_classif_trained_Rdm_Forest.pkl.z',
+    #         'data/vulnmine_data/vendor_classif_trained_Rdm_Forest.pkl.z'
+    #         ])],
 
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow

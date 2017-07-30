@@ -63,36 +63,61 @@ def setup_logging(
 def init_globals():
     """Initialize global variables."""
     # Determine if running directly from source code or as a pkg
-    try:
-        # If default config file is in the "data/" directory, then
-        # must be running from source code directly
-        src_path = (gbls.DATADIR +
-                    gbls.CONFDIR +
-                    gbls.CONFIG_DEFAUlTS
-                    )
-        if os.path.exists(src_path):
-            gbls.pkgdir = gbls.DATADIR + gbls.CONFDIR
-            run_from_src_code = True
-        else:
+    src_path = (gbls.DATADIR +
+                gbls.CONFDIR +
+                gbls.CONFIG_DEFAUlTS
+                )
+
+    # If default config file is in the "data/" directory, then
+    # must be running from source code directly
+
+    if os.path.exists(src_path):
+        run_from_src_code = True
+        print(
+            '=== Appears to be executing source code directly.\n'
+            '=== In this mode, subdirectories are as follows:\n'
+            '===    data/ contains all data and configuration,\n'
+            '===    vulnmine/ contains the source code.'
+           )
+    else:
+        run_from_src_code = False
+        print(
+            '=== Appears to be executing a packaged module.\n'
+            '=== In this mode:\n'
+            '===    data/ subdirectory contains data and '
+            ' user .ini config file,\n'
+            '===    source code and distributed data is in pkg directory.'
+            )
+    if run_from_src_code:
+        gbls.pkgdir = gbls.DATADIR + gbls.CONFDIR
+    else:
+        try:
             # Files distributed with vulnmine are installed in the python
             # '<sys.prefix>/vulnmine_data' directory
             gbls.pkgdir = pkg_resources.resource_filename(
                                                     'vulnmine',
                                                     gbls.CONFDIR
                                                     )
-            gbls.plugin_folder = gbls.pkgdir + parser.get('User', 'Plugins')
-            run_from_src_code = False
+            print 'Debug: ' + gbls.pkgdir
+        except Exception as e:
+            print('*** Error reading default configuration file: {0} \n'
+                '*** Default .ini file is not in the'
+                ' module directory or is misconfigured.\n'
+                '*** Aborting execution'.format(e))
 
-    except Exception as e:
-        print('***Error reading default configuration file: {0}'.format(e))
+            # No use trying to do anything else
+            return 200
 
     parser = SafeConfigParser()
     try:
         default_config_file = gbls.pkgdir + gbls.CONFIG_DEFAUlTS
         user_config_file = gbls.DATADIR + gbls.CONF_FILE
         parser.read([default_config_file, user_config_file])
+
     except Exception as e:
-        print('***Error reading configuration file: {0}'.format(e))
+        print('*** Error reading configuration file: {0}\n'
+            '*** Aborting execution'.format(e))
+        return 100
 
     try:
         gbls.pckdir = (gbls.wkdir +
@@ -195,7 +220,7 @@ def init_globals():
     except Exception as e:
         print('*** Error in config file: {0}'.format(e))
 
-    return None
+    return 0
 
 def load_plugins():
     """Load plugins.
