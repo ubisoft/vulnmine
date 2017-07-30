@@ -62,26 +62,55 @@ def setup_logging(
 
 def init_globals():
     """Initialize global variables."""
-    # Files distributed with vulnmine are installed in the python
-    # '<sys.prefix>/vulnmine_data' directory
-    gbls.pkgdir = pkg_resources.resource_filename(
-                                            'vulnmine',
-                                            'vulnmine_data/'
-                                            )
+    # Determine if running directly from source code or as a pkg
+    try:
+        # If default config file is in the "data/" directory, then
+        # must be running from source code directly
+        src_path = (gbls.DATADIR +
+                    gbls.CONFDIR +
+                    gbls.CONFIG_DEFAUlTS
+                    )
+        if os.path.exists(src_path):
+            gbls.pkgdir = gbls.DATADIR + gbls.CONFDIR
+            run_from_src_code = True
+        else:
+            # Files distributed with vulnmine are installed in the python
+            # '<sys.prefix>/vulnmine_data' directory
+            gbls.pkgdir = pkg_resources.resource_filename(
+                                                    'vulnmine',
+                                                    gbls.CONFDIR
+                                                    )
+            gbls.plugin_folder = gbls.pkgdir + parser.get('User', 'Plugins')
+            run_from_src_code = False
+
+    except Exception as e:
+        print('***Error reading default configuration file: {0}'.format(e))
 
     parser = SafeConfigParser()
     try:
-        default_config_file = gbls.pkgdir + gbls.CONF_DEF_FILE
-        parser.read(default_config_file, CONF_FILE)
+        default_config_file = gbls.pkgdir + gbls.CONFIG_DEFAUlTS
+        user_config_file = gbls.DATADIR + gbls.CONF_FILE
+        parser.read([default_config_file, user_config_file])
     except Exception as e:
-        print('***Error reading configuration file '
-            '"data/vulnmine.ini": {0}'.format(e)
-            )
+        print('***Error reading configuration file: {0}'.format(e))
+
     try:
-        gbls.pckdir = gbls.wkdir + parser.get('Pckdir')
-        gbls.csvdir = gbls.wkdir + parser.get('Csvdir')
-        gbls.nvddir = gbls.wkdir + parser.get('Nvddir')
-        gbls.plugin_folder = gbls.pkgdir + parser.get('Plugins')
+        gbls.pckdir = (gbls.wkdir +
+                    gbls.DATADIR +
+                    parser.get('User', 'Pckdir')
+                    )
+        gbls.csvdir = (gbls.wkdir +
+                    gbls.DATADIR +
+                    parser.get('User', 'Csvdir')
+                    )
+        gbls.nvddir = (gbls.wkdir +
+                    gbls.DATADIR +
+                    parser.get('User', 'Nvddir')
+                    )
+        if run_from_src_code:
+            gbls.plugin_folder = 'vulnmine/' + parser.get('User', 'Plugins')
+        else:
+            gbls.plugin_folder = gbls.pkgdir + parser.get('User', 'Plugins')
 
         # Create directories if do not exist
         if not os.path.isdir(gbls.pckdir):
@@ -94,55 +123,55 @@ def init_globals():
         ######
 
         gbls.s_vndr_stop_wds = (gbls.pkgdir +
-                    parser.get('S_vndr_stop_wds')
+                    parser.get('User', 'S_vndr_stop_wds')
                     )
         gbls.df_label_software = (gbls.pkgdir +
-                    parser.get('Df_label_software')
+                    parser.get('User', 'Df_label_software')
                     )
         gbls.df_label_vendors = (gbls.pkgdir +
-                    parser.get('Df_label_vendors')
+                    parser.get('User', 'Df_label_vendors')
                     )
 
-        gbls.clf_vendor = gbls.pkgdir + parser.get('Clf_vendor')
-        gbls.clf_software = gbls.pkgdir + parser.get('Clf_software')
-        gbls.log_conf = gbls.pkgdir + parser.get('Log_conf')
+        gbls.clf_vendor = gbls.pkgdir + parser.get('User', 'Clf_vendor')
+        gbls.clf_software = gbls.pkgdir + parser.get('User', 'Clf_software')
+        gbls.log_conf = gbls.pkgdir + parser.get('User', 'Log_conf')
 
         ######
         #   CSV Input data
         ######
 
         gbls.v_r_system = (gbls.csvdir +
-                    parser.get('V_r_system')
+                    parser.get('User', 'V_r_system')
                     )
         gbls.v_gs_add_rem_pgms = (gbls.csvdir +
-                    parser.get('V_gs_add_rem_pgms')
+                    parser.get('User', 'V_gs_add_rem_pgms')
                     )
         gbls.v_gs_add_rem_pgms_64 = (gbls.csvdir +
-                    parser.get('V_gs_add_rem_pgms_64')
+                    parser.get('User', 'V_gs_add_rem_pgms_64')
                     )
 
-        gbls.ad_vip_grps = gbls.csvdir + parser.get('Ad_vip_grps')
+        gbls.ad_vip_grps = gbls.csvdir + parser.get('User', 'Ad_vip_grps')
 
         ######
         #   Saved dataframe names
         #   'rf_' - refactor code version
         ######
-        gbls.df_sys_pck = gbls.pckdir + parser.get('Df_sys_pck')
+        gbls.df_sys_pck = gbls.pckdir + parser.get('User', 'Df_sys_pck')
         gbls.df_add_rem_g_pck = (gbls.pckdir +
-                    parser.get('Df_add_rem_g_pck'))
-        gbls.df_cpe4_pck = gbls.pckdir + parser.get('Df_cpe4_pck')
-        gbls.df_cve_pck = gbls.pckdir + parser.get('Df_cve_pck')
+                    parser.get('User', 'Df_add_rem_g_pck'))
+        gbls.df_cpe4_pck = gbls.pckdir + parser.get('User', 'Df_cpe4_pck')
+        gbls.df_cve_pck = gbls.pckdir + parser.get('User', 'Df_cve_pck')
 
         gbls.df_v_R_System_3modified_pck = (gbls.pckdir +
-                    parser.get('Df_v_R_System_3modified_pck')
+                    parser.get('User', 'Df_v_R_System_3modified_pck')
                     )
 
-        gbls.df_sft_vuln_pck = gbls.pckdir + parser.get('Df_sft_vuln_pck')
+        gbls.df_sft_vuln_pck = gbls.pckdir + parser.get('User', 'Df_sft_vuln_pck')
         gbls.df_match_vendor_publisher_pck = (gbls.pckdir +
-                    parser.get('Df_match_vendor_publisher_pck')
+                    parser.get('User', 'Df_match_vendor_publisher_pck')
                     )
         gbls.df_match_cpe_sft_pck = (gbls.pckdir +
-                    parser.get('Df_match_cpe_sft_pck')
+                    parser.get('User', 'Df_match_cpe_sft_pck')
                     )
 
         ######
@@ -150,15 +179,15 @@ def init_globals():
         ######
 
         # https://static.nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2016.meta
-        gbls.url_meta_base = parser.get('Url_meta_base')
-        gbls.url_meta_end = parser.get('Url_meta_end')
-        gbls.url_xml_base = parser.get('Url_xml_base')
-        gbls.url_xml_end = parser.get('Url_xml_end')
-        gbls.url_cpe = parser.get('Url_cpe')
-        gbls.cpe_filename = parser.get('Cpe_filename')
-        gbls.cve_filename = parser.get('Cve_filename')
-        gbls.cpe_max_age = parser.getint('Cpe_max_age')
-        gbls.nvd_meta_filename = parser.get('Nvd_meta_filename')
+        gbls.url_meta_base = parser.get('User', 'Url_meta_base')
+        gbls.url_meta_end = parser.get('User', 'Url_meta_end')
+        gbls.url_xml_base = parser.get('User', 'Url_xml_base')
+        gbls.url_xml_end = parser.get('User', 'Url_xml_end')
+        gbls.url_cpe = parser.get('User', 'Url_cpe')
+        gbls.cpe_filename = parser.get('User', 'Cpe_filename')
+        gbls.cve_filename = parser.get('User', 'Cve_filename')
+        gbls.cpe_max_age = parser.getint('User', 'Cpe_max_age')
+        gbls.nvd_meta_filename = parser.get('User', 'Nvd_meta_filename')
 
         gbls.nvdcpe = gbls.nvddir + gbls.cpe_filename
         gbls.nvdcve = gbls.nvddir + gbls.cve_filename
@@ -196,7 +225,7 @@ def load_plugins():
 
     # Load the plugins from the plugin directory.
     gbls.plugin_manager = PluginManager()
-    gbls.plugin_manager.setPluginPlaces([gbls.PLUGINFOLDER])
+    gbls.plugin_manager.setPluginPlaces([gbls.plugin_folder])
     gbls.plugin_manager.collectPlugins()
 
     # Loop through the plugins and print their names.
