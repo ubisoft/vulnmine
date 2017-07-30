@@ -314,16 +314,8 @@ def main():
 
     # Check that I/P directories are available
 
-    if not os.path.isdir(gbls.confdir):
-        logger.critical('***"conf" dir is missing. Execution terminated.\n\n')
-        return(100)
     if not os.path.isdir(gbls.csvdir):
         logger.critical('***"csv" dir is missing. Execution terminated.\n\n')
-        return(100)
-    if not os.path.isdir(gbls.modeldir):
-        logger.critical(
-            '***"model" dir is missing. Execution terminated.\n\n'
-            )
         return(100)
 
     logger.info(

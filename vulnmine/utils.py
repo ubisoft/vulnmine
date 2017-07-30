@@ -13,6 +13,8 @@ import zipfile as zipf
 
 import requests
 from yapsy.PluginManager import PluginManager
+from ConfigParser import SafeConfigParser
+import pkg_resources
 
 import gbls
 
@@ -20,7 +22,7 @@ utils_logger = logging.getLogger(__name__)
 
 
 def setup_logging(
-        default_path=gbls.confdir + 'logging.json',
+        default_path=gbls.pkgdir + 'logging.json',
         default_level=logging.INFO,
         env_key='LOG_CFG'
         ):
@@ -58,106 +60,110 @@ def setup_logging(
 
     return None
 
-
 def init_globals():
     """Initialize global variables."""
-    gbls.pckdir = gbls.wkdir + 'pck/'
-    gbls.confdir = gbls.wkdir + 'conf/'
-    gbls.csvdir = gbls.wkdir + 'csv/'
-    gbls.nvddir = gbls.wkdir + 'nvd/'
-    gbls.modeldir = gbls.wkdir + 'models/'
+    # Files distributed with vulnmine are installed in the python
+    # '<sys.prefix>/vulnmine_data' directory
+    gbls.pkgdir = pkg_resources.resource_filename(
+                                            'vulnmine',
+                                            'vulnmine_data/'
+                                            )
 
-    # Create directories if do not exist
-    if not os.path.isdir(gbls.pckdir):
-        os.makedirs(gbls.pckdir)
-    if not os.path.isdir(gbls.nvddir):
-        os.makedirs(gbls.nvddir)
+    parser = SafeConfigParser()
+    try:
+        default_config_file = gbls.pkgdir + gbls.CONF_DEF_FILE
+        parser.read(default_config_file, CONF_FILE)
+    except Exception as e:
+        print('***Error reading configuration file '
+            '"data/vulnmine.ini": {0}'.format(e)
+            )
+    try:
+        gbls.pckdir = gbls.wkdir + parser.get('Pckdir')
+        gbls.csvdir = gbls.wkdir + parser.get('Csvdir')
+        gbls.nvddir = gbls.wkdir + parser.get('Nvddir')
 
-    ######
-    #   CSV Input data
-    ######
+        # Create directories if do not exist
+        if not os.path.isdir(gbls.pckdir):
+            os.makedirs(gbls.pckdir)
+        if not os.path.isdir(gbls.nvddir):
+            os.makedirs(gbls.nvddir)
 
-    gbls.v_r_system = gbls.csvdir + 'v_R_System.csv'
-    gbls.v_gs_add_rem_pgms = gbls.csvdir + 'v_GS_ADD_REMOVE_PROGRAMS.csv'
-    gbls.v_gs_add_rem_pgms_64 = (
-                            gbls.csvdir
-                            + 'v_GS_ADD_REMOVE_PROGRAMS_64.csv'
-                            )
-    gbls.ad_vip_grps = gbls.csvdir + 'ps-ad-vip.csv'
-    gbls.s_vndr_stop_wds = gbls.csvdir + 's_vndr_stop_wds.csv'
-    gbls.df_label_software = gbls.csvdir + 'label_software.csv'
-    gbls.df_label_vendors = gbls.csvdir + 'label_vendors.csv'
+        ######
+        #   Vulnmine pkg data files
+        ######
 
-    ######
-    #   Saved dataframe names
-    #   'rf_' - refactor code version
-    ######
-    gbls.df_sys_pck = gbls.pckdir + 'rf_df_sys.pck'
-    gbls.df_add_rem_g_pck = gbls.pckdir + 'rf_df_add_rem_g.pck'
-    gbls.df_cpe4_pck = gbls.pckdir + 'rf_df_cpe4.pck'
-    gbls.df_cve_pck = gbls.pckdir + 'rf_df_cve.pck'
-    gbls.df_v_R_System_3modified_pck = (
-                        gbls.pckdir
-                        + 'rf_df_v_R_System_3modified.pck'
-                        )
-    gbls.df_sft_vuln_pck = gbls.pckdir + 'rf_gbls.df_sft_vuln.pck'
-    gbls.df_match_vendor_publisher_pck = (
-                        gbls.pckdir
-                        + 'rf_df_match_vendor_publisher.pck'
-                        )
-    gbls.df_match_cpe_sft_pck = (
-                        gbls.pckdir
-                        + 'rf_df_match_cpe_sft.pck'
-                        )
-
-    ######
-    #   NVD data
-    ######
-
-    # https://static.nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2016.meta
-    gbls.url_meta_base = (
-                    'https://static.nvd.nist.gov'
-                    + '/feeds/xml/cve/2.0/nvdcve-2.0-'
+        gbls.s_vndr_stop_wds = (gbls.pkgdir +
+                    parser.get('S_vndr_stop_wds')
                     )
-    gbls.url_meta_end = '.meta'
+        gbls.df_label_software = (gbls.pkgdir +
+                    parser.get('Df_label_software')
+                    )
+        gbls.df_label_vendors = (gbls.pkgdir +
+                    parser.get('Df_label_vendors')
+                    )
 
-    # https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-2016.xml.zip
-    gbls.url_xml_base = 'https://nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-'
-    gbls.url_xml_end = '.xml.zip'
+        gbls.clf_vendor = gbls.pkgdir + parser.get('Clf_vendor')
+        gbls.clf_software = gbls.pkgdir + parser.get('Clf_software')
+        gbls.log_conf = gbls.pkgdir + parser.get('Log_conf')
 
-    gbls.url_cpe = (
-                'http://static.nvd.nist.gov/feeds/xml/'
-                'cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip'
-                )
+        ######
+        #   CSV Input data
+        ######
 
-    # Hardcode the cpe filename in case.
-    gbls.cpe_filename = 'official-cpe-dictionary_v2.3.xml'
-    gbls.cve_filename = 'nvdcve-2.0-'
+        gbls.v_r_system = (gbls.csvdir +
+                    parser.get('V_r_system')
+                    )
+        gbls.v_gs_add_rem_pgms = (gbls.csvdir +
+                    parser.get('V_gs_add_rem_pgms')
+                    )
+        gbls.v_gs_add_rem_pgms_64 = (gbls.csvdir +
+                    parser.get('V_gs_add_rem_pgms_64')
+                    )
 
-    # Update the cpe data if older than this value (in days)
-    gbls.cpe_max_age = 7
+        gbls.ad_vip_grps = gbls.csvdir + parser.get('Ad_vip_grps')
 
-    gbls.nvd_meta_filename = 'my_meta_'
+        ######
+        #   Saved dataframe names
+        #   'rf_' - refactor code version
+        ######
+        gbls.df_sys_pck = gbls.pckdir + parser.get('Df_sys_pck')
+        gbls.df_add_rem_g_pck = (gbls.pckdir +
+                    parser.get('Df_add_rem_g_pck'))
+        gbls.df_cpe4_pck = gbls.pckdir + parser.get('Df_cpe4_pck')
+        gbls.df_cve_pck = gbls.pckdir + parser.get('Df_cve_pck')
 
-    # The cpe dictionary lists standardized vendor - software names
-    gbls.nvdcpe = gbls.nvddir + gbls.cpe_filename
+        gbls.df_v_R_System_3modified_pck = (gbls.pckdir +
+                    parser.get('Df_v_R_System_3modified_pck')
+                    )
 
-    # The cve vulnerability data files are named by year
-    #    eg nvdcve-2.0-2015.xml
+        gbls.df_sft_vuln_pck = gbls.pckdir + parser.get('Df_sft_vuln_pck')
+        gbls.df_match_vendor_publisher_pck = (gbls.pckdir +
+                    parser.get('Df_match_vendor_publisher_pck')
+                    )
+        gbls.df_match_cpe_sft_pck = (gbls.pckdir +
+                    parser.get('Df_match_cpe_sft_pck')
+                    )
 
-    gbls.nvdcve = gbls.nvddir + gbls.cve_filename
+        ######
+        #   NVD data
+        ######
 
-    ######
-    #   ML Models
-    ######
-    gbls.clf_vendor = (
-                gbls.modeldir +
-                'vendor_classif_trained_Rdm_Forest.pkl.z'
-                )
-    gbls.clf_software = (
-                gbls.modeldir +
-                'software_classif_trained_Rdm_Forest.pkl.z'
-                )
+        # https://static.nvd.nist.gov/feeds/xml/cve/2.0/nvdcve-2.0-2016.meta
+        gbls.url_meta_base = parser.get('Url_meta_base')
+        gbls.url_meta_end = parser.get('Url_meta_end')
+        gbls.url_xml_base = parser.get('Url_xml_base')
+        gbls.url_xml_end = parser.get('Url_xml_end')
+        gbls.url_cpe = parser.get('Url_cpe')
+        gbls.cpe_filename = parser.get('Cpe_filename')
+        gbls.cve_filename = parser.get('Cve_filename')
+        gbls.cpe_max_age = parser.getint('Cpe_max_age')
+        gbls.nvd_meta_filename = parser.get('Nvd_meta_filename')
+
+        gbls.nvdcpe = gbls.nvddir + gbls.cpe_filename
+        gbls.nvdcve = gbls.nvddir + gbls.cve_filename
+
+    except Exception as e:
+        print('*** Error in config file: {0}'.format(e))
 
     return None
 

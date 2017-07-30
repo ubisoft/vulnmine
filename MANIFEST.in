@@ -1,8 +1,8 @@
 # Include the license file
 include LICENSE.md
 
-# Include the doc files
+# Include the doc files in the source distribution
 recursive-include docs *.md
 
-recursive-include data *.json *.csv *.pkl.z
-recursive-exclude data v_*.csv
+recursive-include data *.json *.csv *.pkl.z *.ini
+recursive-exclude data v_*.csv ps*.csv sft*.csv
