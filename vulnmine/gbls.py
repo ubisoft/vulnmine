@@ -163,7 +163,7 @@ sft_attr_list = sft_key_list + sft_feature_list + ['t_cve_name']
 ######
 
 #   Plugins must be located in the following directory
-PLUGINFOLDER = '/home/jovyan/work/src/plugins'
+plugin_folder = ''
 
 #   Plugin names specified here must match those in the "*.yapsy-plugin"
 #   configuration files

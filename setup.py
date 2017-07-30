@@ -83,6 +83,7 @@ setup(
                 'numpy',
                 'pandas',
                 'python-Levenshtein',
+                'requests',
                 'scikit-learn==0.18.2',
                 'sympy',
                 'scipy==0.19.1',

@@ -3,8 +3,6 @@ MANIFEST.in
 README.rst
 setup.cfg
 setup.py
-data/csv/ps-ad-vip.csv
-data/csv/sft_vuln_raw.csv
 data/vulnmine_data/label_software.csv
 data/vulnmine_data/label_vendors.csv
 data/vulnmine_data/logging.json

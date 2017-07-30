@@ -252,7 +252,7 @@ def main():
 
     parser.add_argument(
         '-w', '--workdir',
-        default='/home/jovyan/work/',
+        default='./',
         help='Specify work directory.'
         )
 

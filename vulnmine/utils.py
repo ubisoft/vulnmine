@@ -81,6 +81,7 @@ def init_globals():
         gbls.pckdir = gbls.wkdir + parser.get('Pckdir')
         gbls.csvdir = gbls.wkdir + parser.get('Csvdir')
         gbls.nvddir = gbls.wkdir + parser.get('Nvddir')
+        gbls.plugin_folder = gbls.pkgdir + parser.get('Plugins')
 
         # Create directories if do not exist
         if not os.path.isdir(gbls.pckdir):
