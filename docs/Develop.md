@@ -77,3 +77,55 @@ The corresponding input data flat files are all found in _data/csv_:
 
 * __ps-ad-vip.csv__: A CSV flat file containing the contents of the AD host group
 "VIP" which contains VIP PCs.
+
+## Publishing on PyPI
+
+This section documents commands used to build / publish the PyPI version of vulnmine.
+
+Setup a virtualenv in the test directory. Copy test data to the test environment. I
+Install software for building, uploading python to PyPI, converting to python3.
+```bash
+mkdir -p ~/wip/vulnmine/test/data/csv
+cd ~/wip/vulnmine/
+virtualenv vulnmine-py2
+source ~/wip/vulnmine/vulnmine-py2/bin/activate
+pip install -upgrade pip coverage \
+future pylint caniusepython3 tox \
+setuptools wheel twine  pypandoc
+
+cd ~/src/git/vulnmine-pub/tests/data
+cp ./ps-ad-vip.csv ~/wip/vulnmine/test/data/csv/
+cp ./df_sys_base.csv ~/wip/vulnmine/test/data/csv/v_R_System.csv
+cp ./df_v_gs_add_rem_base_x64.csv \
+  ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
+cd ./df_v_gs_add_rem_base_x86.csv \
+  ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
+```
+
+First to test a new version locally:
+```bash
+# Move to the git source directory
+cd ~/src/git/vulnmine-pub/
+rm -rf dist
+
+# Build the new version
+python setup.py sdist
+python setup.py bdist_wheel
+
+# Activate the test environment
+# Move to the test directory and install from the source tarball
+source ~/wip/vulnmine/vulnmine-py2/bin/activate
+cd ~/wip/vulnmine/test
+
+pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.3.tar.gz
+
+# Run the new installed version
+python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
+
+# To retest, uninstall the current version
+pip uninstall vulnmine
+
+# When all is working, upload to PyPI
+cd ~/src/git/vulnmine-pub/
+twine upload dist/*
+```
