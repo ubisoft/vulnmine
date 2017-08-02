@@ -63,15 +63,16 @@ def setup_logging(
 def init_globals():
     """Initialize global variables."""
     # Determine if running directly from source code or as a pkg
-    src_path = (gbls.DATADIR +
-                gbls.CONFDIR +
-                gbls.CONFIG_DEFAUlTS
-                )
+    src_path = (gbls.CONFDIR +
+                gbls.CONFIG_DEFAUlTS)
 
-    # If default config file is in the "data/" directory, then
+    # If the default config file is in the "vulnmine/" directory, then
     # must be running from source code directly
+    # Assume running directly from src until proven otherwise
 
-    if os.path.exists(src_path):
+    gbls.pkgdir = ('vulnmine' + src_path)
+
+    if os.path.exists(gbls.pkgdir):
         run_from_src_code = True
         print(
             '=== Appears to be executing source code directly.\n'
@@ -88,9 +89,7 @@ def init_globals():
             ' user .ini config file,\n'
             '===    source code and distributed data is in pkg directory.'
             )
-    if run_from_src_code:
-        gbls.pkgdir = gbls.DATADIR + gbls.CONFDIR
-    else:
+    if not run_from_src_code:
         try:
             # Files distributed with vulnmine are installed in the python
             # '<sys.prefix>/vulnmine_data' directory
@@ -99,6 +98,7 @@ def init_globals():
                                                     gbls.CONFDIR
                                                     )
             print 'Debug: ' + gbls.pkgdir
+
         except Exception as e:
             print('*** Error reading default configuration file: {0} \n'
                 '*** Default .ini file is not in the'
@@ -132,10 +132,16 @@ def init_globals():
                     gbls.DATADIR +
                     parser.get('User', 'Nvddir')
                     )
+
+        plugin_directory = parser.get('User', 'Plugins')
+
         if run_from_src_code:
-            gbls.plugin_folder = 'vulnmine/' + parser.get('User', 'Plugins')
+            gbls.plugin_folder = 'vulnmine/' + plugin_directory
         else:
-            gbls.plugin_folder = gbls.pkgdir + parser.get('User', 'Plugins')
+            gbls.plugin_folder = pkg_resources.resource_filename(
+                                                    'vulnmine',
+                                                    plugin_directory
+                                                    )
 
         # Create directories if do not exist
         if not os.path.isdir(gbls.pckdir):

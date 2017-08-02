@@ -62,7 +62,7 @@ import matchsft
 import vulns
 
 # Don't export any symbols
-__all__ = ()
+# __all__ = ()
 
 
 ######
@@ -415,5 +415,5 @@ def main():
                                                             )
                             )
 
-if __name__ == '__main__':
-    sys.exit(main())
+# if __name__ == '__main__':
+#     sys.exit(main())
