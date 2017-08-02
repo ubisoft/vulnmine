@@ -10,15 +10,29 @@ sys.path.append("../")
 
 # print ("debug plugin1: {0}".format(__package__))
 
-if hasattr(vulnmine, '_called_from_test'):
-    # called from within a pytest run
+# if hasattr(vulnmine, '_called_from_test'):
+#     # called from within a pytest run
+#     import sccm
+#     import gbls
+# else:
+#     # called "normally" so import from pkg
+#     if __package__ is None:
+#         # Running in docker or directly from source
+#         import sccm
+#         import gbls
+#     else:
+#         # Running as pkg
+#         import vulnmine.sccm as sccm
+#         import vulnmine.gbls as gbls
+
+# Imports change if running in docker
+if 'jovyan' in open('/etc/passwd').read():
     import sccm
     import gbls
 else:
-    # called "normally" so import from pkg
+    # Must be running as a package
     import vulnmine.sccm as sccm
     import vulnmine.gbls as gbls
-
 
 
 class PluginOne(IPlugin):

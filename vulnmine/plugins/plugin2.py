@@ -7,15 +7,29 @@ import vulnmine
 # modify search path to include parent directory
 sys.path.append("../")
 
-if hasattr(vulnmine, '_called_from_test'):
-    # called from within a pytest run
+# if hasattr(vulnmine, '_called_from_test'):
+#     # called from within a pytest run
+#     import vulns
+#     import gbls
+# else:
+#     # called "normally" so import from module
+#     if __package__ is None:
+#         # Running in docker or directly from source
+#         import vulns
+#         import gbls
+#     else:
+#         # Running as pkg
+#         import vulnmine.vulns as vulns
+#         import vulnmine.gbls as gbls
+
+# Imports change if running in docker
+if 'jovyan' in open('/etc/passwd').read():
     import vulns
     import gbls
 else:
-    # called "normally" so import from module
+    # Must be running as a package
     import vulnmine.vulns as vulns
     import vulnmine.gbls as gbls
-
 
 
 class PluginTwo(IPlugin):

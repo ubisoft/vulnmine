@@ -19,6 +19,8 @@ This is Vulnmine v1.0.
 
 * **/docs** Documentation
 * **/vulnmine** The vulnmine source code
+    - _/plugins:_ The plugin directory
+    - _/vulnmine_data_: Default configuration data
 * **/tests** The automated pytest framework code and data
 * **/data** Configuration and other files used by vulnmine:
     - _/conf:_ Vulnmine configuration files
@@ -26,7 +28,6 @@ This is Vulnmine v1.0.
     - _/models:_ The Machine Learning models. There is one for vendor matching, and one for software matching.
     - _/nvd:_ The files downloaded from the NIST NVD web site each day.
     - _/pck:_ Intermediate pandas data frame as pickled flat files. These are kept here for persistence use.
-    - _/src:_ _/tests:_ Not used.
 * **/samples** Templates and sample code for production use.
     - _/ansible:_ Configuration / scripts to do a full production deployment using Ansible
     - _/ansible_docker:_ Sample docker configuration to build a working Ansible docker container

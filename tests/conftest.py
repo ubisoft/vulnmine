@@ -25,11 +25,11 @@ def init_testenv():
     utils.load_plugins()
     return 'Initialized'
 
-def pytest_configure(config):
-    import vulnmine
-    vulnmine._called_from_test = True
+# def pytest_configure(config):
+#     import vulnmine
+#     vulnmine._called_from_test = True
 
-def pytest_unconfigure(config):
-    import vulnmine  # This was missing from the manual
-    del vulnmine._called_from_test
+# def pytest_unconfigure(config):
+#     import vulnmine  # This was missing from the manual
+#     del vulnmine._called_from_test
 

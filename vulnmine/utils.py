@@ -63,22 +63,22 @@ def setup_logging(
 def init_globals():
     """Initialize global variables."""
     # Determine if running directly from source code or as a pkg
-    src_path = (gbls.CONFDIR +
-                gbls.CONFIG_DEFAUlTS)
+    src_path = gbls.CONFDIR
 
     # If the default config file is in the "vulnmine/" directory, then
     # must be running from source code directly
     # Assume running directly from src until proven otherwise
 
-    gbls.pkgdir = ('vulnmine' + src_path)
+    gbls.pkgdir = ('vulnmine/' + src_path)
 
     if os.path.exists(gbls.pkgdir):
         run_from_src_code = True
         print(
             '=== Appears to be executing source code directly.\n'
             '=== In this mode, subdirectories are as follows:\n'
-            '===    data/ contains all data and configuration,\n'
-            '===    vulnmine/ contains the source code.'
+            '===    data/ contains data and user .ini config file,\n'
+            '===    vulnmine/ contains the source code. \n'
+            '===    vulnmine/vulnmine_data has default configuration data.'
            )
     else:
         run_from_src_code = False
@@ -87,7 +87,8 @@ def init_globals():
             '=== In this mode:\n'
             '===    data/ subdirectory contains data and '
             ' user .ini config file,\n'
-            '===    source code and distributed data is in pkg directory.'
+            '===    source code and data distributed with pkg are '
+            'in pkg directory.'
             )
     if not run_from_src_code:
         try:
@@ -112,6 +113,12 @@ def init_globals():
     try:
         default_config_file = gbls.pkgdir + gbls.CONFIG_DEFAUlTS
         user_config_file = gbls.DATADIR + gbls.CONF_FILE
+        print (
+            'Utils: Default .ini config file: {0} \n'
+            'User .ini config file: {1}'.format(
+                                        default_config_file,
+                                        user_config_file)
+            )
         parser.read([default_config_file, user_config_file])
 
     except Exception as e:

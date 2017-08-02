@@ -15,7 +15,7 @@ docker-compose run [-u "root"] --rm pyprod [bash]
 See the main README.md file in the root directory for a description of Vulnmine commandline start options. To run all the function:
 
 ```bash
-python src/vulnmine.py -a 'all'
+python vulnmine/__main__.py -a 'all'
 ```
 
 
@@ -83,12 +83,12 @@ As mentioned, these directories are integrated with the local repo directories o
 
 To run some python code:
 ```bash
-python src/vulnmine.py -l 'debug' [-a 'all'] [-y 1]
+python vulnmine/__main__.py -l 'debug' [-a 'all'] [-y 1]
 ```
 
 To run "ad-hoc" python code e.g. to load a pandas dataframe and inspect the contents:
 ```bash
-cd /home/jovyan/work/src
+cd /home/jovyan/work/vulnmine
 python
 ```
 

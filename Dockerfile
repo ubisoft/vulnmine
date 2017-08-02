@@ -15,8 +15,8 @@ RUN groupadd -g $NB_GRP $NM_GRP  && \
 	useradd -m -s $SHELL -u $NB_UID -g $NM_GRP -G $NM_GRPS $NM_USR
 
 # Copy in contents of data/ and vulnmine/ directories for standalone container
-COPY data/ /home/$NM_USR/work/
-COPY vulnmine/ /home/$NM_USR/work/src
+COPY data/ /home/$NM_USR/work/data
+COPY vulnmine/ /home/$NM_USR/work/vulnmine
 
 # Set permissions
 RUN chown -R $NM_USR:$NM_GRPS /home/$NM_USR/work/
@@ -27,4 +27,4 @@ USER $NM_USR
 # Start up in the work directory
 WORKDIR /home/$NM_USR/work
 
-CMD ["python", "src/vulnmine.py"]
+CMD ["python", "vulnmine/__main__.py"]
