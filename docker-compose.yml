@@ -20,8 +20,8 @@ services:
         - EDITOR=nano
 
     volumes:
-        - ./data:/home/jovyan/work:z
-        - ./vulnmine:/home/jovyan/work/src
+        - ./data:/home/jovyan/work/data:z
+        - ./vulnmine:/home/jovyan/work/vulnmine
         - ./tests:/home/jovyan/work/tests
 
 #    restart: always

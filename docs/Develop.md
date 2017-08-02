@@ -103,12 +103,27 @@ cp ./df_v_gs_add_rem_base_x86.csv \
   ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
 ```
 
-The following is used to to test a new version locally. Note that before tests can run directly from the source code, the tarball has to be installed in the virtualenv at least once in order to pick up the requirements.
+
+## Different ways to run the code
+
+Note that there are 4 different modes in which the code can run:
+1. In a docker container in normal execution.
+2. In a docker container running the tests.
+3. In the source code directory directly (as a module)
+4. In a test directory, running the packaged module.
+
+### Running in Docker
+
+This has been described elsewhere (see _docs/Use.md_ and _docs/Tests.md_).
+
+### Running as a packaged module in a test directory.
+
+The following is used to to test a new version of the PyPI package locally. Note that before tests can run directly from the source code, the tarball has to be installed in the virtualenv at least once in order to pick up the requirements.
 
 ```bash
 # Move to the git source directory
 cd ~/src/git/vulnmine-pub
-rm -rf dist
+rm -rf dist build
 
 # Build the new version
 python setup.py sdist
@@ -127,7 +142,9 @@ pip uninstall vulnmine
 pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.3.tar.gz
 
 # Run the new installed version
-python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
+#python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
+
+python -m vulnmine -a rd_sccm_hosts -l debug -y 1
 
 # When all is working, upload to PyPI
 cd ~/src/git/vulnmine-pub/
@@ -135,7 +152,7 @@ twine upload dist/*
 ```
 
 
-To run directly in the source code repository:
+To run directly as a module in the source code repository:
 ```bash
 cd ~/src/git/vulnmine-pub
 python -m vulnmine --help
