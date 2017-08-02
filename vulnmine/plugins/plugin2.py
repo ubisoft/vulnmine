@@ -3,11 +3,20 @@ import pandas as pd
 import re
 from yapsy.IPlugin import IPlugin
 
+import vulnmine
 # modify search path to include parent directory
 sys.path.append("../")
 
-import vulns
-import gbls
+if hasattr(vulnmine, '_called_from_test'):
+    # called from within a pytest run
+    import vulns
+    import gbls
+else:
+    # called "normally" so import from module
+    import vulnmine.vulns as vulns
+    import vulnmine.gbls as gbls
+
+
 
 class PluginTwo(IPlugin):
     def print_name(self):

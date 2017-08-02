@@ -107,7 +107,7 @@ The following is used to to test a new version locally. Note that before tests c
 
 ```bash
 # Move to the git source directory
-cd ~/src/git/vulnmine-pub/
+cd ~/src/git/vulnmine-pub
 rm -rf dist
 
 # Build the new version
@@ -132,4 +132,11 @@ python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sc
 # When all is working, upload to PyPI
 cd ~/src/git/vulnmine-pub/
 twine upload dist/*
+```
+
+
+To run directly in the source code repository:
+```bash
+cd ~/src/git/vulnmine-pub
+python -m vulnmine --help
 ```

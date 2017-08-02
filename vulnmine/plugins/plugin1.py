@@ -3,12 +3,22 @@ import pandas as pd
 import re
 from yapsy.IPlugin import IPlugin
 
+import vulnmine
 
 # modify search path to include parent directory
 sys.path.append("../")
 
-import sccm
-import gbls
+# print ("debug plugin1: {0}".format(__package__))
+
+if hasattr(vulnmine, '_called_from_test'):
+    # called from within a pytest run
+    import sccm
+    import gbls
+else:
+    # called "normally" so import from pkg
+    import vulnmine.sccm as sccm
+    import vulnmine.gbls as gbls
+
 
 
 class PluginOne(IPlugin):

@@ -7,13 +7,13 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-import utils
-import gbls
-import sccm
-import nvd
-import matchven
-import matchsft
-import vulns
+# import utils
+# import gbls
+# import sccm
+# import nvd
+# import matchven
+# import matchsft
+# import vulns
 import vulnmine
 
 # Run the pkg as a script
