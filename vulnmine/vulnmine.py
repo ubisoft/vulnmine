@@ -53,7 +53,10 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
+# print ("Debug vulnmine {0} {1}".format(__package__, __name__))
+
 import utils
+#from vulnmine import utils as utils
 import gbls
 import sccm
 import nvd
@@ -62,7 +65,7 @@ import matchsft
 import vulns
 
 # Don't export any symbols
-__all__ = ()
+# __all__ = ()
 
 
 ######
@@ -415,5 +418,5 @@ def main():
                                                             )
                             )
 
-if __name__ == '__main__':
-    sys.exit(main())
+# if __name__ == '__main__':
+#     sys.exit(main())

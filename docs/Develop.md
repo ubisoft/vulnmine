@@ -60,7 +60,7 @@ There are two regions:  **A** (sites North, West) and **B** (sites South, East).
  In the organization's Active Directory:
 
  * VIP people's desktops / laptops are in the AD group **"VIP"**.
- 
+
  * **Desktops, laptops, and servers** are grouped each in their own OUs. This is
 reflected in the host's Distinguished Name.
 
@@ -82,14 +82,15 @@ The corresponding input data flat files are all found in _data/csv_:
 
 This section documents commands used to build / publish the PyPI version of vulnmine.
 
-Setup a virtualenv in the test directory. Copy test data to the test environment. I
+Setup a virtualenv in the test directory. Copy test data to the test environment.
 Install software for building, uploading python to PyPI, converting to python3.
+
 ```bash
 mkdir -p ~/wip/vulnmine/test/data/csv
 cd ~/wip/vulnmine/
 virtualenv vulnmine-py2
 source ~/wip/vulnmine/vulnmine-py2/bin/activate
-pip install -upgrade pip coverage \
+pip install -U pip coverage \
 future pylint caniusepython3 tox \
 setuptools wheel twine  pypandoc
 
@@ -98,34 +99,44 @@ cp ./ps-ad-vip.csv ~/wip/vulnmine/test/data/csv/
 cp ./df_sys_base.csv ~/wip/vulnmine/test/data/csv/v_R_System.csv
 cp ./df_v_gs_add_rem_base_x64.csv \
   ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
-cd ./df_v_gs_add_rem_base_x86.csv \
+cp ./df_v_gs_add_rem_base_x86.csv \
   ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
 ```
 
-First to test a new version locally:
+The following is used to to test a new version locally. Note that before tests can run directly from the source code, the tarball has to be installed in the virtualenv at least once in order to pick up the requirements.
+
 ```bash
 # Move to the git source directory
-cd ~/src/git/vulnmine-pub/
+cd ~/src/git/vulnmine-pub
 rm -rf dist
 
 # Build the new version
 python setup.py sdist
 python setup.py bdist_wheel
 
-# Activate the test environment
-# Move to the test directory and install from the source tarball
+# Activate the test environment (if not already done)
 source ~/wip/vulnmine/vulnmine-py2/bin/activate
+
+# Move to the test directory and install from the source tarball
 cd ~/wip/vulnmine/test
 
+# To retest, uninstall the current version
+pip uninstall vulnmine
+
+# Install new version to be tested
 pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.3.tar.gz
 
 # Run the new installed version
 python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
 
-# To retest, uninstall the current version
-pip uninstall vulnmine
-
 # When all is working, upload to PyPI
 cd ~/src/git/vulnmine-pub/
 twine upload dist/*
+```
+
+
+To run directly in the source code repository:
+```bash
+cd ~/src/git/vulnmine-pub
+python -m vulnmine --help
 ```

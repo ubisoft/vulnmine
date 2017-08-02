@@ -114,8 +114,8 @@ setup(
                 # 'tests/data/*',
                 # 'tests/conf*.py',
                 # 'tests/rebuild*.py',
-                'plugins/*.py',
-                '../data/vulnmine_data/*'                ],
+                'plugins/*',
+                'vulnmine_data/*'                ],
        },
 
     # Although 'package_data' is the preferred approach, in some case you may

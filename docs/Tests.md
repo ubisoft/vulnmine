@@ -4,7 +4,8 @@ This article describes how to initialize and run the automated pytest framework 
 
 ## Running all the tests
 
-First of all, start a bash shell in the pyprod container. (See _"Use.md"_ for more information on this.)
+First of all, start a bash shell **in the pyprod Docker container**.
+(See _"Use.md"_ for more information on this. The tests have been built to run with Docker, not directly from the source code.)
 
 Then simply run the "pytest" command. Use "-v" to see the details of the tests executed.
 
