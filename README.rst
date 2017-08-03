@@ -1,14 +1,6 @@
 Vulnmine
 ========
 
-**IMPORTANT NOTE**
-2017-7-27
-This code is **alpha** only. For a full working version, currently the best
-approach is to clone the github repository directly or use the Docker Hub
-container.
-
-
-
 Vulnmine uses simple Machine Learning to mine Microsoft's **SCCM** host
 and software inventory data for **vulnerable 3rd-party software**.
 
@@ -74,16 +66,39 @@ If no parameters are specified, then Vulnmine runs in *production mode*:
    -  Processes the SCCM and NVD data.
    -  Produces output JSON files into the same csv directory.
 
-If installing from PyPI with pip
---------------------------------
-
-If you are installing vulnmine using pip, the python-dev library must be installed on
-the system.
+Yet more information ...
+------------------------
 
 Where to get more information
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Vulnmine is on Github: https://github.com/lorgor/vulnmine
 And on Docker Hub: https://hub.docker.com/r/lorgor/vulnmine/
 
 The docs directory has the full Vulnmine documentation.
+
+
+To install vulnmine directly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Vulnmine can be installed using pip.
+
+.. code:: bash
+
+    pip install [-U] python-dev vulnmine
+
+
+On Ubuntu at least, the python-dev library must be installed on
+the system.
+
+Change log
+~~~~~~~~~~
+
+**1.0**
+    Initial release
+
+**1.3.0**
+    Alpha release of .INI configuration support, publish to PyPI
+
+**1.4.0**
+    Beta release

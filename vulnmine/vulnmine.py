@@ -53,10 +53,7 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-# print ("Debug vulnmine {0} {1}".format(__package__, __name__))
-
 import utils
-#from vulnmine import utils as utils
 import gbls
 import sccm
 import nvd
@@ -92,8 +89,9 @@ def rd_sccm_hosts():
     hosts.save()
 
     # Invoke Input plugin for customized I/P data
-    plugin1 = gbls.plugin_manager.getPluginByName(gbls.PLUGINIP)
-    plugin1.plugin_object.modify_hosts(hosts)
+    if gbls.activate_plugins:
+        plugin1 = gbls.plugin_manager.getPluginByName(gbls.PLUGINIP)
+        plugin1.plugin_object.modify_hosts(hosts)
 
 def rd_sccm_sft():
     """Read SCCM software inventory data"""
@@ -199,8 +197,9 @@ def output_stats():
     match_vulns.basic_stats()
 
     # Invoke Report plugin for customized stats
-    plugin2 = gbls.plugin_manager.getPluginByName(gbls.PLUGINRPT)
-    plugin2.plugin_object.custom_stats(match_vulns)
+    if gbls.activate_plugins:
+        plugin2 = gbls.plugin_manager.getPluginByName(gbls.PLUGINRPT)
+        plugin2.plugin_object.custom_stats(match_vulns)
 
 def do_all():
     rd_sccm_hosts()
@@ -335,7 +334,8 @@ def main():
 
     # Load plugins
 
-    utils.load_plugins()
+    if gbls.activate_plugins:
+        utils.load_plugins()
 
     ######
     #   Scheduling functions

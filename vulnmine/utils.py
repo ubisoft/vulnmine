@@ -88,7 +88,7 @@ def init_globals():
             '===    data/ subdirectory contains data and '
             ' user .ini config file,\n'
             '===    source code and data distributed with pkg are '
-            'in pkg directory.'
+            'in the pkg install directory.'
             )
     if not run_from_src_code:
         try:
@@ -98,7 +98,7 @@ def init_globals():
                                                     'vulnmine',
                                                     gbls.CONFDIR
                                                     )
-            print 'Debug: ' + gbls.pkgdir
+            print 'Utils Pkg directory is: {0}'.format(gbls.pkgdir)
 
         except Exception as e:
             print('*** Error reading default configuration file: {0} \n'
@@ -140,15 +140,19 @@ def init_globals():
                     parser.get('User', 'Nvddir')
                     )
 
-        plugin_directory = parser.get('User', 'Plugins')
+        gbls.activate_plugins = parser.getboolean('User', 'Activate_plugins')
 
-        if run_from_src_code:
-            gbls.plugin_folder = 'vulnmine/' + plugin_directory
-        else:
-            gbls.plugin_folder = pkg_resources.resource_filename(
-                                                    'vulnmine',
-                                                    plugin_directory
-                                                    )
+        if gbls.activate_plugins:
+
+            plugin_directory = parser.get('User', 'Plugins')
+
+            if run_from_src_code:
+                gbls.plugin_folder = 'vulnmine/' + plugin_directory
+            else:
+                gbls.plugin_folder = pkg_resources.resource_filename(
+                                                        'vulnmine',
+                                                        plugin_directory
+                                                        )
 
         # Create directories if do not exist
         if not os.path.isdir(gbls.pckdir):
@@ -257,6 +261,14 @@ def load_plugins():
 
     """
     utils_logger.info('\n\nEntering load_plugins\n\n')
+
+    # Check if plugin function active
+    if not gbls.activate_plugins:
+        utils_logger.error(
+                '\n\n***Plugin function not active.'
+                'Plugin loading aborted.'
+                )
+        return None
 
     # Set logging for the yapsy plugin framework
     logging.getLogger('yapsy').setLevel(gbls.loglvl)

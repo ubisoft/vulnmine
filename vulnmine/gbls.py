@@ -173,3 +173,6 @@ PLUGINRPT = 'Plugin Report'
 
 #   Global plugin manager object
 plugin_manager = None
+
+#   Global plugin function switch
+activate_plugins = True
