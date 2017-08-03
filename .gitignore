@@ -17,8 +17,8 @@
 **/data/csv/*json
 **/data/pck/**
 **/data/nvd/**
-**/data/csv/*csv
 **/data/vulnmine.ini
+**/data/csv/sft_vuln_raw.csv
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
