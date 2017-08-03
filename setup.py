@@ -23,7 +23,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.3',
+    version='1.0.4',
 
     description='Mine SCCM and NIST NVD for host vulnerability data',
     long_description=long_description,
@@ -44,7 +44,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: Information Technology',
@@ -111,9 +111,6 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
        'vulnmine': [
-                # 'tests/data/*',
-                # 'tests/conf*.py',
-                # 'tests/rebuild*.py',
                 'plugins/*',
                 'vulnmine_data/*'                ],
        },

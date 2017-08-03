@@ -116,6 +116,16 @@ Note that there are 4 different modes in which the code can run:
 
 This has been described elsewhere (see _docs/Use.md_ and _docs/Tests.md_).
 
+Remember to clean up the "data/" directory between tests:
+```bash
+cd some_directory/data
+[rm ./vulnmine.init]
+rm -rf ./nvd ./pck
+cd ./csv
+rm *json
+rm ./sft_vuln_raw.csv
+```
+
 ### Running as a packaged module in a test directory.
 
 The following is used to to test a new version of the PyPI package locally. Note that before tests can run directly from the source code, the tarball has to be installed in the virtualenv at least once in order to pick up the requirements.
@@ -139,7 +149,7 @@ cd ~/wip/vulnmine/test
 pip uninstall vulnmine
 
 # Install new version to be tested
-pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.3.tar.gz
+pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.4.tar.gz
 
 # Run the new installed version
 #python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
