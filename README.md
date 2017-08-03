@@ -13,7 +13,7 @@ To download and run the Vulnmine container:
 ```bash
 docker run -it --rm lorgor/vulnmine bash
 
-python src/vulnmine.py -a 'all'
+python vulnmine/__main__.py -a 'all'
 ```
 
 ### Commandline Start Options

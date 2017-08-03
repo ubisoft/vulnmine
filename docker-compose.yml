@@ -27,8 +27,8 @@ services:
 #    restart: always
 
     # no spaces in parameter for script
-    command: ["python", "src/vulnmine.py"]
-#    command: ["python", "src/sccmmain.py", "-ard_cve"]
+    command: ["python", "python vulnmine/__main__.py"]
+#    command: ["python", "python vulnmine/__main__.py", "-ard_cve"]
  #   command: ["bash", "-c", "id; pwd; ls -alF; ls -alF src"]
 
 

@@ -128,7 +128,7 @@ docker-compose down -v
 
 docker-compose run pyprod bash
 
-python src/vulnmine.py -a 'all'
+python python vulnmine/__main__.py -a 'all'
 ```
 
 Exit the container, and check the files in the /var/deploy/csv directory.
