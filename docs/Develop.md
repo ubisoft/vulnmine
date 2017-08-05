@@ -46,10 +46,17 @@ Plugin code can also read input data sets and print output.
 
 For simplicity, python "print()" is used.
 
+### Plugin configuration
+
+The .INI configuration files can be used to configure the plugin function:
+
+* __Plugins__: Specifies plugin directory
+*  __Activate_plugins__: Global switch to turn plugin function on or off
+
 ## The test data
 
 Realistic test data is provided with the released code. This section
-gives a basic description of this data
+gives a basic description of this data.
 
 ### The organization "mycorp.com"
 

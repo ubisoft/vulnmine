@@ -61,6 +61,30 @@ If no parameters are specified, then Vulnmine runs in *production mode*:
     - Processes the SCCM and NVD data.
     - Produces output JSON files into the same csv directory.
 
+## Configuring Vulnmine
+
+Vulnmine can be configured using .INI files. (This uses the standard python ConfigParser library.)
+
+The default .INI file is in **vulnmine/vulnmine_data/vulnmine_defaults.ini**.
+
+Users can override default values. Vulnmine looks for the following file: **data/vulnmine.ini**.
+
+Here is an example:
+
+```
+[User]
+# Section must start with "[User]"
+
+# Override Plugin default values
+# ===================================
+
+# Plugins will load from "data/my_plugins"
+Plugins: data/my_plugins/
+
+# Turn off plugin function completely
+Activate_plugins: No
+```
+
 ## Where to get more information
 
 Vulnmine is on Github: <https://github.com/lorgor/vulnmine>

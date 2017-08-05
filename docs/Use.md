@@ -1,8 +1,8 @@
-# Running Vulnmine / Doing development
+# Running Vulnmine in Docker; Other notes for use
 
 This article has code snippets and suggestions for running Vulnmine as well as doing development.
 
-##   Start the docker container
+##   To start the docker container
 
 ```bash
 source mygit/vulnmine-pub/compose/bin/activate
@@ -55,28 +55,45 @@ deactivate
 
 ### Proxy support
 
-To build and run Vulnmine, there must be unfettered access to the Internet.
+To build and run Vulnmine, there must be open access to the Internet.
 
 Using the docker-compose.yml script provided should eliminate most, if not all, difficulties if you are behind a corporate proxy. However for this to work, the bash environment needs to be set with _http_proxy_ / _https_proxy_ variables (including any authentication credentials needed by the proxy.)
 
 ##   Inside the bash shell in the pyprod Docker container
 
-Once the pyprod container is running, here is a list of the main work directories:
+Once the pyprod container is running, here is a list of the main directories:
 
 ```bash
-jovyan@0d1ec2502487:~/work$ pwd
-/home/jovyan/work
-jovyan@0d1ec2502487:~/work$ ls -alF
-total 88
-drwxrwxr-x 9 jovyan jovyan  4096 Jan 15 22:12 ./
-drwxr-xr-x 3 jovyan jovyan  4096 Jan 15 22:08 ../
-drwxrwxr-x 2 jovyan jovyan  4096 Jan 15 21:19 conf/
-drwxrwxr-x 2 jovyan jovyan  4096 Jan 15 21:19 csv/
-drwxrwxr-x 2 jovyan jovyan 57344 Jan 15 21:19 models/
-drwxrwxr-x 2 jovyan jovyan  4096 Jan 15 21:19 nvd/
-drwxrwxr-x 2 jovyan jovyan  4096 Jan 15 21:19 pck/
-drwxrwxr-x 4 jovyan jovyan  4096 Jan 15 21:19 scripts/
-drwxrwxr-x 2 jovyan jovyan  4096 Jan 14 14:45 src/
+jovyan@574694787c68:~/work$ ls -alF
+total 4
+drwxr-xr-x. 4 root   root     34 Aug  5 02:29 ./
+drwxr-xr-x. 3 jovyan jovyan   69 Aug  5 02:25 ../
+drwxrwxr-x. 5 jovyan jovyan   39 Aug  5 02:30 data/
+drwxrwxr-x. 4 jovyan jovyan 4096 Aug  5 02:30 vulnmine/
+jovyan@574694787c68:~/work$
+jovyan@574694787c68:~/work$ ls -alF data/
+total 8
+drwxrwxr-x. 5 jovyan jovyan     39 Aug  5 02:30 ./
+drwxr-xr-x. 4 root   root       34 Aug  5 02:29 ../
+drwxrwxr-x. 2  15839 srm_sccm 4096 Aug  5 03:15 csv/
+drwxr-xr-x. 2 jovyan jovyan   4096 Aug  5 02:31 nvd/
+drwxr-xr-x. 2 jovyan jovyan    194 Aug  5 03:15 pck/
+jovyan@574694787c68:~/work$
+jovyan@574694787c68:~/work$ ls -alF vulnmine/
+total 320
+drwxrwxr-x. 4 jovyan jovyan  4096 Aug  5 02:30 ./
+drwxr-xr-x. 4 root   root      34 Aug  5 02:29 ../
+-rw-rw-r--. 1 jovyan jovyan    26 Aug  5 02:23 __init__.py
+-rw-rw-r--. 1 jovyan jovyan   212 Aug  5 02:23 __main__.py
+-rw-rw-r--. 1 jovyan jovyan  3484 Aug  5 02:23 gbls.py
+-rw-rw-r--. 1 jovyan jovyan 37225 Aug  5 02:23 matchsft.py
+-rw-rw-r--. 1 jovyan jovyan 20557 Aug  5 02:23 matchven.py
+-rw-rw-r--. 1 jovyan jovyan 14873 Aug  5 02:23 ml.py
+-rw-rw-r--. 1 jovyan jovyan 33995 Aug  5 02:23 nvd.py
+drwxrwxr-x. 2 jovyan jovyan   136 Aug  5 02:30 plugins/
+-rw-rw-r--. 1 jovyan jovyan 13936 Aug  5 02:23 sccm.py
+-rw-rw-r--. 1 jovyan jovyan 11414 Aug  5 02:23 utils.py
+-rw-rw-r--. 1 jovyan jovyan 10094 Aug  5 02:23 vulnmine.py
 ```
 
 As mentioned, these directories are integrated with the local repo directories on disk.
@@ -128,7 +145,7 @@ As development / testing progresses, care should be taken to keep the dataframe 
 The classic symptoms are:
 
 * Data starts "appearing" that should no longer be there.
-* Key errors start occurring.
+* "Key" errors start occurring.
 
 The easiest way to synchronize everything is to start a bash shell in the pyprod container as described above, and then do a full 'all' run.
 
@@ -141,21 +158,23 @@ The versions of the main Python librairies are pinned in the Requirements.txt fi
 
 In particular, scikit-learn is pinned.
 
-The reason for this is that if the scikit-learn version changes, then the ML classification algorithms should be retrained to produce new models. This process is described below.
+The reason for this is that if the scikit-learn version changes, then the ML classification algorithms need to be retrained to produce new models. This process is described below.
 
 #### python / pandas
 
-If the python / pandas versions change, then all pickled data will most likely be no longer usable. Weird error messages will result that apparently have nothing to do with the real root cause.
+If the python / pandas versions change, then all pickled data will most likely be no longer usable. Weird error messages will result that apparently have nothing to do with the real root cause. In particular, the test "base" files will need to be rebuilt.
 
-### Long story short
+### Same software as jupyter/scipy-notebook
 
-In summary, whenever the Vulnmine model training is done, the latest version of the following Docker Hub container is used: [jupyter/scipy-notebook](https://hub.docker.com/r/jupyter/scipy-notebook/) (on Docker Hub), see also [Jupyter's github repository](https://github.com/jupyter/docker-stacks).
+Whenever the Vulnmine model training is done, the latest version of the following Docker Hub container is used: [jupyter/scipy-notebook](https://hub.docker.com/r/jupyter/scipy-notebook/) (on Docker Hub), see also [Jupyter's github repository](https://github.com/jupyter/docker-stacks).
 
 (Note that this jupyter/scipy-notebook container does not necessarily have latest and greatest versions of all major libraries.)
 
 The Vulnmine requirements.txt file pins all versions to be compatible with this Jupyter public container (python 2).
 
 ### Training models
+
+Labelled data is provided for training the models (cf vulnmine_data/label*csv).
 
 As mentioned above, when the python / pandas / scikit-learn versions change, the ML algorithms should be retrained. This will avoid compatibility issues.
 

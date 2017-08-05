@@ -20,12 +20,10 @@ This is Vulnmine v1.0.
 * **/docs** Documentation
 * **/vulnmine** The vulnmine source code
     - _/plugins:_ The plugin directory
-    - _/vulnmine_data_: Default configuration data
+    - _/vulnmine_data_: Data used by the vulnmine pgm: default .INI configuration file, and the Machine Learning models. There is one model for vendor matching, and one for software matching.
 * **/tests** The automated pytest framework code and data
 * **/data** Configuration and other files used by vulnmine:
-    - _/conf:_ Vulnmine configuration files
     - _/csv:_ Input csv files are placed here. Processing will result in output JSON files that are also put here.
-    - _/models:_ The Machine Learning models. There is one for vendor matching, and one for software matching.
     - _/nvd:_ The files downloaded from the NIST NVD web site each day.
     - _/pck:_ Intermediate pandas data frame as pickled flat files. These are kept here for persistence use.
 * **/samples** Templates and sample code for production use.
@@ -54,9 +52,9 @@ The _docker-compose.yml_ configuration provided fully integrates the local repos
 - Inspect output file contents.
 
 For detailed instructions, see:
-* **docs/Installation.md**: Initial setup / installation instructions:
-* **docs/Quickstart.md**: How to run Vulnmine tests using docker-compose.
-* **docs/Develop.md**: Notes for developers
+* __docs/Installation.md__: Initial setup / installation instructions:
+* __docs/Quickstart.md__: How to run Vulnmine tests using docker-compose.
+* __docs/Develop.md__: Notes for developers
 
 ### Dependencies
 
