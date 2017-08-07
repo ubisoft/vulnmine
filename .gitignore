@@ -20,7 +20,6 @@
 **/data/vulnmine.ini
 **/data/csv/sft_vuln_raw.csv
 
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 **/*.userprefs
 
