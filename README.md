@@ -87,7 +87,7 @@ Activate_plugins: No
 
 ## Where to get more information
 
-Vulnmine is on Github: <https://github.com/lorgor/vulnmine>
+Vulnmine is on Github: <https://github.com/ubisoftinc/vulnmine>
 
 The docs directory has the full Vulnmine documentation.
 
