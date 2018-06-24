@@ -16,8 +16,8 @@ import pandas as pd
 import sys
 import logging
 
-import gbls
-import utils
+from . import gbls
+from . import utils
 
 # Public classes
 __all__ = (

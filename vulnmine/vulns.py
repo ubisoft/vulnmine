@@ -31,10 +31,10 @@ import sys
 
 import logging
 
-import gbls
-import utils
-import sccm
-import nvd
+from . import gbls
+from . import utils
+from . import sccm
+from . import nvd
 
 # Public classes
 __all__ = (
@@ -257,13 +257,13 @@ class MatchVulns(object):
             # get rid of extraneous data columns
             df_sft3.drop(
                     [
-                        u'cvss:score',
-                        u'cvss:access-complexity',
-                        u'cvss:access-vector',
-                        u'cvss:authentication',
-                        u'cvss:availability-impact',
-                        u'cvss:confidentiality-impact',
-                        u'cvss:integrity-impact'],
+                        'cvss:score',
+                        'cvss:access-complexity',
+                        'cvss:access-vector',
+                        'cvss:authentication',
+                        'cvss:availability-impact',
+                        'cvss:confidentiality-impact',
+                        'cvss:integrity-impact'],
                     # u'vuln:security-protection'],
                     # 170118 Bug fix: Sometimes not present
                     inplace=True,

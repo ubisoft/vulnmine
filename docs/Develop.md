@@ -168,6 +168,12 @@ cd ~/src/git/vulnmine-pub/
 twine upload dist/*
 ```
 
+### Pycharm
+
+This assumes that an empty Pycharm project has been created as a wrapper for the git repository.
+
+Activate the test environment
+. ~/PycharmProjects/vulnmine/venv/bin/activate
 
 To run directly as a module in the source code repository:
 ```bash

@@ -53,13 +53,13 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-import utils
-import gbls
-import sccm
-import nvd
-import matchven
-import matchsft
-import vulns
+from . import utils
+from . import gbls
+from . import sccm
+from . import nvd
+from . import matchven
+from . import matchsft
+from . import vulns
 
 # Don't export any symbols
 # __all__ = ()

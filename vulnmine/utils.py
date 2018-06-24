@@ -8,15 +8,15 @@ init_globals: Initialize global variables
 import os
 import json
 import logging.config
-import StringIO as strIO
+import io as strIO
 import zipfile as zipf
 
 import requests
 from yapsy.PluginManager import PluginManager
-from ConfigParser import SafeConfigParser
+from configparser import SafeConfigParser
 import pkg_resources
 
-import gbls
+from . import gbls
 
 utils_logger = logging.getLogger(__name__)
 
@@ -98,7 +98,7 @@ def init_globals():
                                                     'vulnmine',
                                                     gbls.CONFDIR
                                                     )
-            print 'Utils Pkg directory is: {0}'.format(gbls.pkgdir)
+            print('Utils Pkg directory is: {0}'.format(gbls.pkgdir))
 
         except Exception as e:
             print('*** Error reading default configuration file: {0} \n'
@@ -113,7 +113,7 @@ def init_globals():
     try:
         default_config_file = gbls.pkgdir + gbls.CONFIG_DEFAUlTS
         user_config_file = gbls.DATADIR + gbls.CONF_FILE
-        print (
+        print(
             'Utils: Default .ini config file: {0} \n'
             'User .ini config file: {1}'.format(
                                         default_config_file,

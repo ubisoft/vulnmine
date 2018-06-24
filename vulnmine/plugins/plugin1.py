@@ -77,8 +77,8 @@ class PluginOne(IPlugin):
             #       v_R_System record
             ######
 
-            REGION_A = [u'NTH', u'WST']
-            REGION_B = [u'STH', u'EST']
+            REGION_A = ['NTH', 'WST']
+            REGION_B = ['STH', 'EST']
 
             print(
                 '\n\n\nEntering plugin1 - _classify_using_sccm_data\n\n')
@@ -256,7 +256,7 @@ class PluginOne(IPlugin):
         my_hosts.load()
         new_df_sys = my_hosts.get()
 
-        print (
+        print(
             '\nPlugin I/P sccm dframe:\n{0}\n{1}'.format(
                                                 new_df_sys.shape,
                                                 new_df_sys.columns

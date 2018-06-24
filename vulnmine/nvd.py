@@ -37,8 +37,8 @@ import requests
 import xmltodict as xd
 import logging
 
-import gbls
-import utils
+from . import gbls
+from . import utils
 
 # Public classes
 __all__ = (
@@ -965,16 +965,16 @@ class NvdCve(object):
         # pull out the cvss information for each vulnerability
         df_cvss = df_nvd2[[
                 'vuln:cve-id',
-                u'cvss:access-complexity',
-                u'cvss:access-vector',
-                u'cvss:authentication',
-                u'cvss:availability-impact',
-                u'cvss:confidentiality-impact',
-                u'cvss:integrity-impact',
-                u'cvss:score',
+                'cvss:access-complexity',
+                'cvss:access-vector',
+                'cvss:authentication',
+                'cvss:availability-impact',
+                'cvss:confidentiality-impact',
+                'cvss:integrity-impact',
+                'cvss:score',
                 # 170118 Bug fix: Sometimes not present
                 #                u'vuln:security-protection',
-                u'cvss:source'
+                'cvss:source'
                 ]]
 
         # Now merge it into the new dataframe mapping software to vulns

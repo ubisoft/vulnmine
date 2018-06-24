@@ -46,11 +46,11 @@ from sklearn.externals import joblib
 
 import logging
 
-import gbls
-import utils
-import sccm
-import nvd
-import ml
+from . import gbls
+from . import utils
+from . import sccm
+from . import nvd
+from . import ml
 
 # Public classes
 __all__ = (
@@ -836,9 +836,9 @@ class MatchSoft(object):
                 # data
                 df_match1_tst2c = df_match1_tst2b.drop_duplicates(
                                                         subset=[
-                                                            u'vendor_X',
-                                                            u'DisplayName0',
-                                                            u'Version0']
+                                                            'vendor_X',
+                                                            'DisplayName0',
+                                                            'Version0']
                                                             )
 
                 self.logger.info(
