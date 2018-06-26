@@ -45,8 +45,8 @@ from sklearn.externals import joblib
 import logging
 import sys
 
-from . import gbls
-from . import utils
+import gbls
+import utils
 
 # Public classes
 __all__ = (

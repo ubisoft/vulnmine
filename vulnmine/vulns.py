@@ -22,6 +22,7 @@ Public classes
 MatchVulns      Merge CVE Vuln data with SCCM host data, print basic stats.
 
 """
+
 import re
 
 import pandas as pd
@@ -31,10 +32,11 @@ import sys
 
 import logging
 
-from . import gbls
-from . import utils
-from . import sccm
-from . import nvd
+import gbls
+import utils
+import sccm
+import nvd
+
 
 # Public classes
 __all__ = (

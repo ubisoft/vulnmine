@@ -44,6 +44,11 @@ Examples
 
     python vulnmine.py mydir
 """
+
+
+# Don't export any symbols
+# __all__ = ()
+
 import logging
 import argparse
 import sys
@@ -53,16 +58,14 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-from . import utils
-from . import gbls
-from . import sccm
-from . import nvd
-from . import matchven
-from . import matchsft
-from . import vulns
+import matchsft
+import utils
+import gbls
+import sccm
+import nvd
+import matchven
+import vulns
 
-# Don't export any symbols
-# __all__ = ()
 
 
 ######
@@ -418,5 +421,6 @@ def main():
                                                             )
                             )
 
-# if __name__ == '__main__':
+
+#if __name__ == '__main__':
 #     sys.exit(main())

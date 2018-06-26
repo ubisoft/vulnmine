@@ -12,12 +12,13 @@ SccmHosts       SCCM Hosts class
 SccmSoft        SCCM Software class
 
 """
+
 import pandas as pd
 import sys
 import logging
 
-from . import gbls
-from . import utils
+import gbls
+import utils
 
 # Public classes
 __all__ = (

@@ -33,6 +33,7 @@ MatchSoft     Match NVD CPE "Software" data to SCCM "Software" inventory data
               inventory data.
 
 """
+
 import re
 from time import time
 
@@ -46,11 +47,12 @@ from sklearn.externals import joblib
 
 import logging
 
-from . import gbls
-from . import utils
-from . import sccm
-from . import nvd
-from . import ml
+import gbls
+import utils
+import sccm
+import nvd
+import ml
+
 
 # Public classes
 __all__ = (

@@ -7,7 +7,7 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-from . import vulnmine
+import vulnmine
 
 # Run the pkg as a script
 sys.exit(vulnmine.main())

@@ -5,18 +5,19 @@ setup_logging: Initialize logging
 init_globals: Initialize global variables
 
 """
+
 import os
 import json
 import logging.config
-import io as strIO
+from io import StringIO as strIO
 import zipfile as zipf
 
 import requests
 from yapsy.PluginManager import PluginManager
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 import pkg_resources
 
-from . import gbls
+import gbls
 
 utils_logger = logging.getLogger(__name__)
 
@@ -109,7 +110,7 @@ def init_globals():
             # No use trying to do anything else
             return 200
 
-    parser = SafeConfigParser()
+    parser = ConfigParser()
     try:
         default_config_file = gbls.pkgdir + gbls.CONFIG_DEFAUlTS
         user_config_file = gbls.DATADIR + gbls.CONF_FILE
