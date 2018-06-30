@@ -1,6 +1,6 @@
 # Install latest stable version of Docker python 2.x image from DockerHub.
 
-FROM python:2.7-onbuild
+FROM python:3-onbuild
 
 # Configure environment
 # 160719 cf Jupyter stack Dockerfile

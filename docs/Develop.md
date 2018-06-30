@@ -175,6 +175,9 @@ This assumes that an empty Pycharm project has been created as a wrapper for the
 Activate the test environment
 . ~/PycharmProjects/vulnmine/venv/bin/activate
 
+To run with pycharm:
+Run __main.py__
+
 To run directly as a module in the source code repository:
 ```bash
 cd ~/src/git/vulnmine-pub

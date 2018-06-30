@@ -9,7 +9,7 @@ init_globals: Initialize global variables
 import os
 import json
 import logging.config
-from io import StringIO as strIO
+import io
 import zipfile as zipf
 
 import requests
@@ -47,7 +47,7 @@ def setup_logging(
     if value:
         path = value
     if os.path.exists(path):
-        with open(path, 'rt') as f:
+        with io.open(path, 'rt') as f:
             config = json.load(f)
         logging.config.dictConfig(config)
     else:
@@ -336,13 +336,14 @@ def get_zip(myurl):
             return (None, None)
 
     # unzip compressed archive
-    my_zipfile = zipf.ZipFile(strIO.StringIO(resp.content))
+    my_zipfile = zipf.ZipFile(io.BytesIO(resp.content))
     zip_names = my_zipfile.namelist()
 
     # should be only 1 file in the archive
     if len(zip_names) == 1:
         file_name = zip_names.pop()
-        extracted_file = my_zipfile.open(file_name).read()
+        extracted_file_bytes = my_zipfile.open(file_name).read()
+        extracted_file = extracted_file_bytes.decode("utf-8")
         utils_logger.info(
             'get_zip: Successfully extracted {0}'.format(
                                                         file_name

@@ -3,6 +3,13 @@
 
 ## Port to python3
 
+### 180630
+Develop ML files for python3 pandas + test rest of pgm
+Then start running pytest with vulnmine / pycharm
+Document pycharm use with vulnmine.
+Test with Docker
+Rebuild module, test + upload.
+
 ### 2to3
 
 2to3 -f all -f buffer -f idioms -f set_literal -f ws_comma

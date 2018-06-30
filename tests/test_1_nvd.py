@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import datetime
 import os
+import io
 
 import filecmp
 from shutil import copyfile
@@ -32,7 +33,7 @@ class TestNvdCpe:
 
         # Read flat file as a string to return as mock http response
         try:
-            with open(
+            with io.open(
                 "data/official-cpe-dictionary_v2.3.xml.base.zip",
                 "rb"
                 ) as myfile:
@@ -125,7 +126,7 @@ class TestNvdCve:
                                                             )
                 )
             try:
-                with open(
+                with io.open(
                     my_file,
                     "rb"
                     ) as myfile:

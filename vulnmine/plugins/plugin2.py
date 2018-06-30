@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 import re
+import io
 from yapsy.IPlugin import IPlugin
 
 import vulnmine
@@ -23,13 +24,13 @@ sys.path.append("../")
 #         import vulnmine.gbls as gbls
 
 # Imports change if running in docker
-if 'jovyan' in open('/etc/passwd').read():
+if 'jovyan' in io.open('/etc/passwd', 'r').read():
     import vulns
     import gbls
 else:
     # Must be running as a package
-    import vulnmine.vulns as vulns
-    import vulnmine.gbls as gbls
+    import vulns
+    import gbls
 
 
 class PluginTwo(IPlugin):

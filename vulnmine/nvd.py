@@ -32,6 +32,7 @@ import sys
 import datetime
 import time
 import os
+import io
 
 import requests
 import xmltodict as xd
@@ -211,7 +212,7 @@ class NvdCpe(object):
 
             (cpe_filename, cpe_filecontents) = utils.get_zip(gbls.url_cpe)
             if cpe_filename:
-                output_cpe = open(my_cpe, 'w')
+                output_cpe = io.open(my_cpe, 'w')
                 output_cpe.write(cpe_filecontents)
                 output_cpe.close()
 
@@ -272,7 +273,7 @@ class NvdCpe(object):
                     )
                 )
 
-        with open(my_cpe) as fd:
+        with io.open(my_cpe, 'r') as fd:
             dict_cpe = xd.parse(fd.read())
 
         # convert the python dictionary to a pandas dataframe
@@ -682,7 +683,7 @@ class NvdCve(object):
 
             # if file already exists then read the contents
             if os.path.isfile(meta_filename):
-                meta_filecontents = open(meta_filename, 'r').read()
+                meta_filecontents = io.open(meta_filename, 'r').read()
 
                 # read updated xml feed file since corresponding meta file
                 # contents have changed.
@@ -712,7 +713,7 @@ class NvdCve(object):
 
             # save new / updated meta file to disk
 
-            output_meta = open(meta_filename, 'w')
+            output_meta = io.open(meta_filename, 'w')
             output_meta.write(resp.text)
             output_meta.close()
 
@@ -746,7 +747,7 @@ class NvdCve(object):
                                                 )
                     )
 
-                output_xml = open(my_cve_filename, 'wb')
+                output_xml = io.open(my_cve_filename, 'w')
                 output_xml.write(xml_filecontents)
                 output_xml.close()
 
@@ -830,7 +831,7 @@ class NvdCve(object):
                             )
                         )
 
-                with open(my_file1) as fd:
+                with io.open(my_file1, 'r') as fd:
                     my_dict = xd.parse(fd.read())
 
                 df_tmp = pd.DataFrame.from_dict(
