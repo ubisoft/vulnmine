@@ -5,7 +5,6 @@ setup_logging: Initialize logging
 init_globals: Initialize global variables
 
 """
-
 import os
 import json
 import logging.config

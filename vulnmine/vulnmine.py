@@ -58,12 +58,12 @@ import time
 import functools
 from yapsy.PluginManager import PluginManager
 
-import matchsft
 import utils
 import gbls
 import sccm
 import nvd
 import matchven
+import matchsft
 import vulns
 
 

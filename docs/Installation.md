@@ -45,7 +45,7 @@ pip install -U docker-compose
 pip install -U pytest
 ```
 
-Note: Be sure to install and use **python2** not python 3.
+Note: Be sure to install and use python 3.
 
 ### Build the local docker container
 

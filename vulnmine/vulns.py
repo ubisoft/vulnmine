@@ -38,6 +38,7 @@ import sccm
 import nvd
 
 
+
 # Public classes
 __all__ = (
         'MatchVulns'

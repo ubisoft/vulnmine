@@ -117,7 +117,8 @@ Note that there are 4 different modes in which the code can run:
 1. In a docker container in normal execution.
 2. In a docker container running the tests.
 3. In the source code directory directly (as a module)
-4. In a test directory, running the packaged module.
+4. With pycharm
+5. In a test directory, running the packaged module.
 
 ### Running in Docker
 
@@ -147,7 +148,7 @@ python setup.py sdist
 python setup.py bdist_wheel
 
 # Activate the test environment (if not already done)
-source ~/wip/vulnmine/vulnmine-py2/bin/activate
+source ~/wip/vulnmine/vulnmine-py3/bin/activate
 
 # Move to the test directory and install from the source tarball
 cd ~/wip/vulnmine/test
@@ -159,7 +160,7 @@ pip uninstall vulnmine
 pip install ~/src/git/vulnmine-pub/dist/vulnmine-1.0.4.tar.gz
 
 # Run the new installed version
-#python ../vulnmine-py2/lib/python2.7/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
+#python ../vulnmine-py3/lib/python3.5/site-packages/vulnmine/vulnmine.py -a rd_sccm_hosts -l debug -y 1
 
 python -m vulnmine -a rd_sccm_hosts -l debug -y 1
 
@@ -176,7 +177,7 @@ Activate the test environment
 . ~/PycharmProjects/vulnmine/venv/bin/activate
 
 To run with pycharm:
-Run __main.py__
+Run \_\_main.py\_\_
 
 To run directly as a module in the source code repository:
 ```bash

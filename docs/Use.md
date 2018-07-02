@@ -5,9 +5,7 @@ This article has code snippets and suggestions for running Vulnmine as well as d
 ##   To start the docker container
 
 ```bash
-source mygit/vulnmine-pub/compose/bin/activate
-
-cd mygit/vulnmine-pub/
+cd ~/src/git/vulnmine/
 
 docker-compose run [-u "root"] --rm pyprod [bash]
 ```
@@ -48,10 +46,6 @@ Rebuild the docker image:
 docker-compose build [--pull]
 ```
 
-Turn off the python virtualenv:
-```bash
-deactivate
-```
 
 ### Proxy support
 
@@ -170,7 +164,21 @@ Whenever the Vulnmine model training is done, the latest version of the followin
 
 (Note that this jupyter/scipy-notebook container does not necessarily have latest and greatest versions of all major libraries.)
 
-The Vulnmine requirements.txt file pins all versions to be compatible with this Jupyter public container (python 2).
+The Vulnmine requirements.txt file pins all versions to be compatible with this Jupyter public container (python 3).
+
+Quick commands:
+```bash
+# Run a cmd line in the Jupyter container
+docker run -it --rm jupyter/scipy-notebook start.sh bash
+
+# Start the iPython notebook server
+docker run -d -p 8888:8888 -v ~/src/git/vulnmine:/home/jovyan/work jupyter/scipy-notebook start-notebook.sh
+# find container id
+docker ps
+# look at logs to find specific URL for browser
+docker logs CONTAINER-id
+# browse to this URL
+```
 
 ### Training models
 
@@ -180,7 +188,7 @@ As mentioned above, when the python / pandas / scikit-learn versions change, the
 
 Sample scipy iPython notebooks are included in the Vulnmine repository **_/docs/html_**.
 
-These notebooks can be run on the Jupyter scipy-notebook container (python 2) to produce new retrained model files.
+These notebooks can be run on the Jupyter scipy-notebook container (python3) to produce new retrained model files.
 
 ### Docker housekeeping
 
