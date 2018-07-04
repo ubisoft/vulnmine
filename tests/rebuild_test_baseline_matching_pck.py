@@ -25,7 +25,7 @@ def init_testenv():
     logger = logging.getLogger(__name__)
     logger.setLevel(gbls.loglvl)
     utils.load_plugins()
-    print 'Initialized'
+    print ('Initialized')
     return None
 
 # Bypass this test unless specifically needed

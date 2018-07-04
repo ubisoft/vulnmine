@@ -186,7 +186,7 @@ Labelled data is provided for training the models (cf vulnmine_data/label*csv).
 
 As mentioned above, when the python / pandas / scikit-learn versions change, the ML algorithms should be retrained. This will avoid compatibility issues.
 
-Sample scipy iPython notebooks are included in the Vulnmine repository **_/docs/html_**.
+Sample scipy iPython notebooks are included in the Vulnmine repository **_/vulnmine/ipynb_**. Html versions are in **_/docs/html_**.
 
 These notebooks can be run on the Jupyter scipy-notebook container (python3) to produce new retrained model files.
 

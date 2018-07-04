@@ -89,8 +89,7 @@ The corresponding input data flat files are all found in _data/csv_:
 
 This section documents commands used to build / publish the PyPI version of vulnmine.
 
-Setup a virtualenv in the test directory. Copy test data to the test environment.
-Install software for building, uploading python to PyPI, converting to python3.
+Setup a virtualenv, then install software for building, uploading python to PyPI, converting to python3.
 
 ```bash
 mkdir -p ~/wip/vulnmine/test/data/csv
@@ -101,15 +100,9 @@ pip install -U pip coverage \
 future pylint caniusepython3 tox \
 setuptools wheel twine  pypandoc
 
-cd ~/src/git/vulnmine-pub/tests/data
-cp ./ps-ad-vip.csv ~/wip/vulnmine/test/data/csv/
-cp ./df_sys_base.csv ~/wip/vulnmine/test/data/csv/v_R_System.csv
-cp ./df_v_gs_add_rem_base_x64.csv \
-  ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS_64.csv
-cp ./df_v_gs_add_rem_base_x86.csv \
-  ~/wip/vulnmine/test/data/csv/v_GS_ADD_REMOVE_PROGRAMS.csv
 ```
 
+For information on using pycharm to publish on pypi: [Pycharm Blog: How to Publish Your Package on PyPI](https://blog.jetbrains.com/pycharm/2017/05/how-to-publish-your-package-on-pypi/)
 
 ## Different ways to run the code
 

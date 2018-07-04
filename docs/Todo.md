@@ -3,11 +3,11 @@
 
 ## Port to python3
 
+### 180706
+Check new Java versions vs heuristics
+rework classification: DOS not NB for local
+
 ### 180630
-* Develop ML files for python3 pandas + test rest of pgm
-    * finish other 2 iPython notebooks and produce model for python3
-    * pin software to Jupyter scipy notebook versions
-    * convert all nbooks to html
 
 * Then start running pytest with vulnmine / pycharm
 * Document pycharm use with vulnmine.
