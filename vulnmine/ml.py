@@ -436,7 +436,8 @@ class MLClassify(object):
                                     ],
                                 df_match_lbl
                                 ],
-                                ignore_index=True
+                                ignore_index=True,
+                                sort=True
                                 )
 
         # eliminate any possible remaining duplicate records

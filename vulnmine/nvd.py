@@ -321,7 +321,8 @@ class NvdCpe(object):
         df_cpe2 = pd.concat(
             [df_cpe1.reset_index(drop=True), df_cpe_name],
             axis=1,
-            join='outer')
+            join='outer',
+            sort=True)
 
         self.logger.debug(
                     '\n\nExtract embedded product name '
@@ -378,7 +379,7 @@ class NvdCpe(object):
                                     expand=False)
 
         # add the new columns to the main dataframe
-        self.df_cpe4 = pd.concat([df_cpe3, df_tmp], axis=1, join='outer')
+        self.df_cpe4 = pd.concat([df_cpe3, df_tmp], axis=1, join='outer', sort=True)
 
         self.logger.debug(
                         '\n\nExtract vendor, software, release data '
@@ -881,7 +882,7 @@ class NvdCve(object):
         df_cvss = pd.DataFrame(s_cvss_dict.tolist())
 
         # Finally, concatenate the two dataframes into one (by columns)
-        df_nvd2 = pd.concat([df_nvd1, df_cvss], axis=1, join='outer')
+        df_nvd2 = pd.concat([df_nvd1, df_cvss], axis=1, join='outer', sort=True)
 
         self.logger.debug(
             '\n\nNVD CVE counts, columns after '

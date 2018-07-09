@@ -3,6 +3,17 @@
 
 ## Port to python3
 
+## 180709
+msg:
+> /usr/local/lib/python3.6/site-packages/pandas/core/frame.py:6211: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+> To accept the future behavior, pass 'sort=False'.
+
+> To retain the current behavior and silence the warning, pass 'sort=True'.
+
+
+
 ### 180706
 Check new Java versions vs heuristics
 rework classification: DOS not NB for local

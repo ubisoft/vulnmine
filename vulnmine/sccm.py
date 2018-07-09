@@ -357,7 +357,8 @@ class SccmSoft(object):
         df_add_rem_g0 = pd.concat(
                 [df_v_gs_add_rem_tmp, df_v_gs_add_rem64_tmp],
                 axis=0,
-                join='outer'
+                join='outer',
+                sort=True
                 )
 
         # Print basic information
