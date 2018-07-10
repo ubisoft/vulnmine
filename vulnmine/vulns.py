@@ -236,20 +236,21 @@ class MatchVulns(object):
             # categories
             df_sft3['cvss_acc_cmpl_cat'] = df_sft3[
                         'cvss:access-complexity'].astype(
-                            'category',
-                            categories=['HIGH', 'MEDIUM', 'LOW'],
-                            ordered=True
-                            )
+                            pd.api.types.CategoricalDtype(
+                                categories=['HIGH', 'MEDIUM', 'LOW'],
+                                ordered=True
+                            ))
+
 
             df_sft3['cvss_acc_vect_cat'] = df_sft3[
                             'cvss:access-vector'].astype(
-                                'category',
-                                categories=[
-                                        'LOCAL',
-                                        'ADJACENT_NETWORK',
-                                        'NETWORK'
-                                        ],
-                                ordered=True)
+                                pd.api.types.CategoricalDtype(
+                                    categories=[
+                                            'LOCAL',
+                                            'ADJACENT_NETWORK',
+                                            'NETWORK'
+                                            ],
+                                    ordered=True))
 
             # convert from string to float for max comparisons
             df_sft3['cvss_score'] = pd.to_numeric(
@@ -324,10 +325,10 @@ class MatchVulns(object):
 
             # and then convert the calculated value to a category
             df_sft4_agg['crit_X_cat'] = df_sft4_agg['crit_X'].astype(
-                                            'category',
-                                            categories=my_crit_categories,
-                                            ordered=True
-                                            )
+                                            pd.api.types.CategoricalDtype(
+                                                categories=my_crit_categories,
+                                                ordered=True
+                                                ))
 
             df_sft4_agg.drop(['crit_X'], axis=1, inplace=True)
 
