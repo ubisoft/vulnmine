@@ -56,7 +56,7 @@ If no parameters are specified, then Vulnmine runs in *production mode*:
 * The main vulnmine.py starts and sets up an endless schedule loop.
 * The loop fires once daily by default.
 * Each day Vulnmine:
-    - Reads the SCCM inventory data files (UTF16 csv format) in the its CSV directory.
+    - Reads the SCCM inventory data files (UTF16 csv format) in the CSV directory.
     - Downloads updated NVD feed files.
     - Processes the SCCM and NVD data.
     - Produces output JSON files into the same csv directory.
