@@ -86,7 +86,7 @@ setup(
                 'requests',
                 'scikit-learn==0.18.2',
                 'sympy',
-                'scipy==0.19.1',
+                'scipy==1.10.0',
                 'schedule',
                 'xmltodict',
                 'yapsy'
